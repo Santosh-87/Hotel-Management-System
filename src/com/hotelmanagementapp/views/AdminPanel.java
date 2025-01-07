@@ -1297,7 +1297,7 @@ public class AdminPanel extends javax.swing.JFrame {
 
         pnlForTotalRooms.setBackground(new java.awt.Color(58, 109, 140));
 
-        lblTotalRoomsTitleAndIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Add a heading.png"))); // NOI18N
+        lblTotalRoomsTitleAndIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/totalRooms.png"))); // NOI18N
         lblTotalRoomsTitleAndIcon.setText("jLabel2");
 
         lblForTotalRoomsData.setFont(new java.awt.Font("Segoe UI", 1, 80)); // NOI18N
