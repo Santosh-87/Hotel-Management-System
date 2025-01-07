@@ -4,17 +4,21 @@
  */
 package com.hotelmanagementapp.views;
 
-import javax.swing.JOptionPane;
-
 /**
  *
- * @author lamab
+ * @author Santosh Lama 
+ * LMU ID: 23048594
  */
-
+/**
+ * HomePage class represents the main interface for the Hotel Management System.
+ * It includes navigation options like a "Manage Operations" button and displays
+ * the hotel logo and background image. On button click, it opens the
+ * AdminPanel.
+ */
 public class HomePage extends javax.swing.JFrame {
 
     /**
-     * Creates new form homePage
+     * Creates new form HomePage
      */
     public HomePage() {
         initComponents();
@@ -29,232 +33,192 @@ public class HomePage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlHeroSection = new javax.swing.JPanel();
+        pnlMainForAdmin = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        pnlHome = new javax.swing.JPanel();
         lblHomePageBackgroundImage = new javax.swing.JLabel();
-        menuBarMain = new javax.swing.JMenuBar();
-        menuManageRooms = new javax.swing.JMenu();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        menuCustomerCheckIn = new javax.swing.JMenu();
-        menuCustomerCheckOut = new javax.swing.JMenu();
-        menuDashBoard = new javax.swing.JMenu();
-        menuBill = new javax.swing.JMenu();
-        menuLogOut = new javax.swing.JMenu();
-        menuExit = new javax.swing.JMenu();
+        jLabel1 = new javax.swing.JLabel();
+        btnManageOperations = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+
+        pnlMainForAdmin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1000, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 925, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("tab1", jPanel1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1000, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 925, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("tab2", jPanel2);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1000, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 925, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("tab3", jPanel3);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1000, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 925, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("tab4", jPanel4);
+
+        pnlMainForAdmin.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -32, -1, 960));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocation(new java.awt.Point(300, 10));
+        setBounds(new java.awt.Rectangle(300, 5, 0, 0));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnlHome.setBackground(new java.awt.Color(0, 31, 63));
+        pnlHome.setForeground(new java.awt.Color(0, 31, 63));
 
         lblHomePageBackgroundImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/hotelHomePageBackground.jpg"))); // NOI18N
 
-        javax.swing.GroupLayout pnlHeroSectionLayout = new javax.swing.GroupLayout(pnlHeroSection);
-        pnlHeroSection.setLayout(pnlHeroSectionLayout);
-        pnlHeroSectionLayout.setHorizontalGroup(
-            pnlHeroSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblHomePageBackgroundImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        pnlHeroSectionLayout.setVerticalGroup(
-            pnlHeroSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlHeroSectionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblHomePageBackgroundImage, javax.swing.GroupLayout.PREFERRED_SIZE, 697, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/hotelLogo.jpg"))); // NOI18N
+
+        btnManageOperations.setBackground(new java.awt.Color(153, 51, 0));
+        btnManageOperations.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnManageOperations.setForeground(new java.awt.Color(255, 255, 255));
+        btnManageOperations.setText("Manage Operations");
+        btnManageOperations.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageOperationsActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Click Here:");
+
+        javax.swing.GroupLayout pnlHomeLayout = new javax.swing.GroupLayout(pnlHome);
+        pnlHome.setLayout(pnlHomeLayout);
+        pnlHomeLayout.setHorizontalGroup(
+            pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHomeLayout.createSequentialGroup()
+                .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblHomePageBackgroundImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
+            .addGroup(pnlHomeLayout.createSequentialGroup()
+                .addGap(334, 334, 334)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnManageOperations)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        pnlHomeLayout.setVerticalGroup(
+            pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHomeLayout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblHomePageBackgroundImage, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pnlHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnManageOperations, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18))
+        );
 
-        getContentPane().add(pnlHeroSection, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 22, -1, -1));
-
-        menuBarMain.setBackground(new java.awt.Color(102, 102, 102));
-
-        menuManageRooms.setBackground(new java.awt.Color(153, 153, 153));
-        menuManageRooms.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        menuManageRooms.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/manageRoomIcon.png"))); // NOI18N
-        menuManageRooms.setText("Manage Rooms");
-        menuManageRooms.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        menuManageRooms.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuManageRoomsMouseClicked(evt);
-            }
-        });
-        menuManageRooms.add(jSeparator1);
-
-        menuBarMain.add(menuManageRooms);
-
-        menuCustomerCheckIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/checkInIcon.png"))); // NOI18N
-        menuCustomerCheckIn.setText("Customer Check-In");
-        menuCustomerCheckIn.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        menuCustomerCheckIn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuCustomerCheckInMouseClicked(evt);
-            }
-        });
-        menuBarMain.add(menuCustomerCheckIn);
-
-        menuCustomerCheckOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/checkOutIcon.png"))); // NOI18N
-        menuCustomerCheckOut.setText("Customer Check-Out");
-        menuCustomerCheckOut.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        menuCustomerCheckOut.addMenuListener(new javax.swing.event.MenuListener() {
-            public void menuCanceled(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuDeselected(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuSelected(javax.swing.event.MenuEvent evt) {
-                menuCustomerCheckOutMenuSelected(evt);
-            }
-        });
-        menuBarMain.add(menuCustomerCheckOut);
-
-        menuDashBoard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/dashBoardIcon.png"))); // NOI18N
-        menuDashBoard.setText("DashBoard");
-        menuDashBoard.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        menuDashBoard.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuDashBoardMouseClicked(evt);
-            }
-        });
-        menuBarMain.add(menuDashBoard);
-
-        menuBill.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/billIcon.png"))); // NOI18N
-        menuBill.setText("Bill");
-        menuBill.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        menuBarMain.add(menuBill);
-
-        menuLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logoutIcon.png"))); // NOI18N
-        menuLogOut.setText("Log Out");
-        menuLogOut.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        menuLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuLogOutMouseClicked(evt);
-            }
-        });
-        menuBarMain.add(menuLogOut);
-
-        menuExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/close (1).png"))); // NOI18N
-        menuExit.setText("Exit");
-        menuExit.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
-        menuExit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuExitMouseClicked(evt);
-            }
-        });
-        menuBarMain.add(menuExit);
-
-        setJMenuBar(menuBarMain);
+        getContentPane().add(pnlHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1012, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void menuManageRoomsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuManageRoomsMouseClicked
+    /**
+     * Handles the action when the "Manage Operations" button is clicked. Opens
+     * the AdminFrame window and hides the current window.
+     *
+     * @param evt the ActionEvent triggered when the "Manage Operations" button
+     * is clicked
+     */
+    private void btnManageOperationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageOperationsActionPerformed
         // TODO add your handling code here:
+        new AdminPanel().setVisible(true);
         this.setVisible(false);
-        new ManageRooms().setVisible(true);
-    }//GEN-LAST:event_menuManageRoomsMouseClicked
-
-    private void menuCustomerCheckInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCustomerCheckInMouseClicked
-        // TODO add your handling code here:
-        this.setVisible(false);
-        new CustomerCheckIn().setVisible(true);
-    }//GEN-LAST:event_menuCustomerCheckInMouseClicked
-
-    private void menuCustomerCheckOutMenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_menuCustomerCheckOutMenuSelected
-        // TODO add your handling code here:
-        this.setVisible(false);
-        new CustomerCheckOut().setVisible(true);
-    }//GEN-LAST:event_menuCustomerCheckOutMenuSelected
-
-    private void menuLogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLogOutMouseClicked
-        // TODO add your handling code here:
-        int response = JOptionPane.showConfirmDialog(
-                this,
-                "Are you sure you want to log out?",
-                "Confirm Logout",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE
-        );
-
-        // Handle the user's response
-        if (response == JOptionPane.YES_OPTION) {
-            this.setVisible(false);
-            new LoginPage().setVisible(true);
-        } else {
-            // If the user selects "No," do nothing
-            System.out.println("Logout canceled by user.");
-        }
-    }//GEN-LAST:event_menuLogOutMouseClicked
-
-    private void menuExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuExitMouseClicked
-
-        int response = JOptionPane.showConfirmDialog(
-                null,
-                "Are you sure you want to exit?",
-                "Exit Confirmation",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE
-        );
-
-        if (response == JOptionPane.YES_OPTION) {
-            // Close the application
-            System.exit(0);
-        } else {
-            // Log or handle if the user chooses not to exit
-            System.out.println("User canceled the exit operation.");
-        }
-  
-
-    }//GEN-LAST:event_menuExitMouseClicked
-
-    private void menuDashBoardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuDashBoardMouseClicked
-        // TODO add your handling code here:
-        new AdminDashBoard().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_menuDashBoardMouseClicked
+    }//GEN-LAST:event_btnManageOperationsActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-    /* Set the Nimbus look and feel */
-    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-     */
-    try {
-        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-            if ("Nimbus".equals(info.getName())) {
-                javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                break;
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
             }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-    } catch (ClassNotFoundException ex) {
-        java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (InstantiationException ex) {
-        java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (IllegalAccessException ex) {
-        java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-        java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-    }
-    //</editor-fold>
-    //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
-    /* Create and display the form */
-    java.awt.EventQueue.invokeLater(new Runnable() {
-        public void run() {
-            new HomePage().setVisible(true);
-        }
-    });
-}
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new HomePage().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JButton btnManageOperations;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblHomePageBackgroundImage;
-    private javax.swing.JMenuBar menuBarMain;
-    private javax.swing.JMenu menuBill;
-    private javax.swing.JMenu menuCustomerCheckIn;
-    private javax.swing.JMenu menuCustomerCheckOut;
-    private javax.swing.JMenu menuDashBoard;
-    private javax.swing.JMenu menuExit;
-    private javax.swing.JMenu menuLogOut;
-    private javax.swing.JMenu menuManageRooms;
-    private javax.swing.JPanel pnlHeroSection;
+    private javax.swing.JPanel pnlHome;
+    private javax.swing.JPanel pnlMainForAdmin;
     // End of variables declaration//GEN-END:variables
 }

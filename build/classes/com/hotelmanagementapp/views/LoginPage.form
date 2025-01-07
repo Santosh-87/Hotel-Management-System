@@ -21,14 +21,14 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-45,0,0,3,-84"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-28,0,0,3,-23"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
     <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="pnlLoginFrame1">
+    <Container class="javax.swing.JPanel" name="pnlLogin">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="3f" green="1f" red="0" type="rgb"/>
@@ -45,7 +45,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
-                  <Component id="pnlLoginForm1" min="-2" max="-2" attributes="0"/>
+                  <Component id="pnlForm" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="120" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -54,39 +54,42 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
-                  <Component id="pnlLoginForm1" min="-2" max="-2" attributes="0"/>
+                  <Component id="pnlForm" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="85" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="pnlLoginForm1">
+        <Container class="javax.swing.JPanel" name="pnlForm">
 
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="lblSubTitleForLoginInstructions1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblLoginWelcomeTitle1" min="-2" pref="215" max="-2" attributes="0"/>
-                          <Component id="txtFieldEmailAddress1" min="-2" pref="212" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="btnLogin1" min="-2" pref="91" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                      <Component id="btnSignUp1" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="pwdFieldForLogin" min="-2" pref="212" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnShow" min="-2" pref="64" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblSubTitleForLoginInstructions1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblLoginWelcomeTitle1" alignment="0" min="-2" pref="215" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="btnLogin" min="-2" pref="91" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnSignUp1" min="-2" pref="109" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="lblErrorMessage" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtFieldEmailAddress1" min="-2" pref="212" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="pwdFieldForLogin" min="-2" pref="212" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="btnShow" min="-2" pref="64" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="lblErrorMessage" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="26" max="32767" attributes="0"/>
+                      <EmptySpace pref="24" max="32767" attributes="0"/>
                       <Component id="lblLoginBackground" min="-2" pref="433" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -99,22 +102,20 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblSubTitleForLoginInstructions1" min="-2" pref="33" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="txtFieldEmailAddress1" min="-2" pref="51" max="-2" attributes="0"/>
+                      <Component id="txtFieldEmailAddress1" min="-2" pref="62" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="pwdFieldForLogin" min="-2" pref="56" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="pwdFieldForLogin" min="-2" pref="56" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                               <Component id="btnShow" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lblErrorMessage" min="-2" pref="16" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="lblErrorMessage" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnLogin1" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="btnLogin" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                           <Component id="btnSignUp1" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -146,7 +147,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnLogin1">
+            <Component class="javax.swing.JButton" name="btnLogin">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="56" green="23" red="1b" type="rgb"/>
@@ -160,7 +161,7 @@
                 <Property name="text" type="java.lang.String" value="LOGIN"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogin1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLoginActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnSignUp1">
@@ -194,9 +195,6 @@
                   </Border>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pwdFieldForLoginActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblLoginBackground">
               <Properties>
@@ -227,8 +225,11 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblErrorMessage">
               <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="33" red="ff" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="10" style="0"/>
                 </Property>
               </Properties>
             </Component>

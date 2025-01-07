@@ -6,7 +6,16 @@ package com.hotelmanagementapp.model;
 
 /**
  *
- * @author lamab
+ * @author Santosh Lama 
+ * LMU ID: 23048594
+ */
+
+/**
+ * Represents a room in the hotel management system. This class encapsulates the
+ * details of a room, including its number, type, grade, bed configuration,
+ * pricing, and availability status. includes getters and setters to manage room
+ * details efficiently.
+ *
  */
 public class RoomModel {
 

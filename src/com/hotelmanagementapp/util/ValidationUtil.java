@@ -6,8 +6,7 @@ package com.hotelmanagementapp.util;
 
 /**
  *
- * @author Santosh Lama 
- * LMU ID: 23048594
+ * @author Santosh Lama LMU ID: 23048594
  */
 import java.util.regex.Pattern;
 
@@ -24,6 +23,8 @@ public class ValidationUtil {
     private static final Pattern GENDER_PATTERN = Pattern.compile("^(Male|Female)\\s*$"); // Pre-defined Gender types
     private static final Pattern MOBILE_NUMBER_PATTERN = Pattern.compile("^98\\d{8}$"); // 
     private static final Pattern NATIONALITY_PATTERN = Pattern.compile("^[a-zA-Z\\s]{2,30}$"); // Matches a valid nationality (2 to 20 alphabetic characters, including spaces)
+    private static final Pattern MEAL_PLAN_PATTERN = Pattern.compile("^(Breakfast only|Full Board|No Meal)\\s*$");
+    private static final Pattern CHECKIN_PREFERENCE_PATTERN = Pattern.compile("^(Morning|Afternoon|Evening)\\s*$");
 
     /**
      * Validates Room Number.
@@ -123,5 +124,25 @@ public class ValidationUtil {
      */
     public static boolean isValidNationality(String nationality) {
         return NATIONALITY_PATTERN.matcher(nationality).matches();
+    }
+
+    /**
+     * Validates Meal Plan.
+     *
+     * @param mealPlan the meal plan to validate
+     * @return true if valid, otherwise false
+     */
+    public static boolean isValidMealPlan(String mealPlan) {
+        return MEAL_PLAN_PATTERN.matcher(mealPlan).matches();
+    }
+
+    /**
+     * Validates Check In Preference Selection.
+     *
+     * @param checkInPreference the checkInPreference to validate
+     * @return true if valid, otherwise false
+     */
+    public static boolean isValidCheckInPreference(String checkInPreference) {
+        return CHECKIN_PREFERENCE_PATTERN.matcher(checkInPreference).matches();
     }
 }

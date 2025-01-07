@@ -9,7 +9,14 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author 23048594 Santosh Lama
+ * @author 23048594 
+ * Santosh Lama
+ */
+/**
+ * LoadingPage class simulates the loading process of the Hotel Management
+ * System with a progress bar and status updates. Once the loading completes, it
+ * transitions to the LoginPage and disposes of the LoadingPage.
+ *
  */
 public class LoadingPage extends javax.swing.JFrame {
 
@@ -18,44 +25,7 @@ public class LoadingPage extends javax.swing.JFrame {
      */
     public LoadingPage() {
         initComponents();
-        Thread loadingPercentage = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for(int i=0;i<=100;i++){
-                    loadingProgressBar.setValue(i);
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(LoadingPage.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    
-                    if(loadingProgressBar.getString().equals("10%")){
-                        lblLoadingTitle.setText("Starting up application...");
-                    }
-                    else if(loadingProgressBar.getString().equals("25%")){
-                        lblLoadingTitle.setText("Loading resources...");
-                    }
-                    else if(loadingProgressBar.getString().equals("50%")){
-                        lblLoadingTitle.setText("Initializing components...");
-                    }
-                    else if(loadingProgressBar.getString().equals("75%")){
-                        lblLoadingTitle.setText("Finalizing setup...");
-                    }
-                    else if(loadingProgressBar.getString().equals("100%")){                    
-                        lblLoadingTitle.setText("Application loaded successfully!");
-                        new LoginPage().setVisible(true);
-                        LoadingPage.this.dispose();
-    
-                    }                      
-                }
-                
-              
-            }
-        });
-        loadingPercentage.start();
-           
-      
-            
+        startLoadingProcess(); // method call inside the constructor for dynamic flow of progress bar
     }
 
     /**
@@ -67,7 +37,7 @@ public class LoadingPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        pnlMain = new javax.swing.JPanel();
         pnlLoginForm1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lblHotelLogo = new javax.swing.JLabel();
@@ -80,7 +50,7 @@ public class LoadingPage extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 31, 63));
+        pnlMain.setBackground(new java.awt.Color(0, 31, 63));
 
         pnlLoginForm1.setPreferredSize(new java.awt.Dimension(599, 481));
 
@@ -110,33 +80,33 @@ public class LoadingPage extends javax.swing.JFrame {
         lblLoadingTitle.setForeground(new java.awt.Color(204, 204, 204));
         lblLoadingTitle.setText("Loading....");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlMainLayout = new javax.swing.GroupLayout(pnlMain);
+        pnlMain.setLayout(pnlMainLayout);
+        pnlMainLayout.setHorizontalGroup(
+            pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblHotelLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 1063, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(pnlMainLayout.createSequentialGroup()
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlMainLayout.createSequentialGroup()
                         .addGap(205, 205, 205)
                         .addComponent(pnlLoginForm1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(pnlMainLayout.createSequentialGroup()
                         .addGap(326, 326, 326)
                         .addComponent(lblWelcomeTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMainLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMainLayout.createSequentialGroup()
                         .addComponent(loadingProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 998, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlMainLayout.createSequentialGroup()
                         .addComponent(lblLoadingTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(65, 65, 65))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlMainLayout.setVerticalGroup(
+            pnlMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlMainLayout.createSequentialGroup()
                 .addComponent(lblHotelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62)
                 .addComponent(pnlLoginForm1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -148,10 +118,50 @@ public class LoadingPage extends javax.swing.JFrame {
                 .addComponent(loadingProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(pnlMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * Simulates a loading process with a progress bar and status updates.
+     *
+     * Updates progress and status messages at milestones. Transitions to the
+     * main application screen upon completion.
+     */
+    private void startLoadingProcess() {
+        Thread loadingPercentage = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i <= 100; i++) {
+                    loadingProgressBar.setValue(i);
+                    try {
+                        Thread.sleep(50); // Adjust delay as needed
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(LoadingPage.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    // Update the loading title based on progress
+                    if (i == 10) {
+                        lblLoadingTitle.setText("Starting up application...");
+                    } else if (i == 25) {
+                        lblLoadingTitle.setText("Loading resources...");
+                    } else if (i == 50) {
+                        lblLoadingTitle.setText("Initializing components...");
+                    } else if (i == 75) {
+                        lblLoadingTitle.setText("Finalizing setup...");
+                    } else if (i == 100) {
+                        lblLoadingTitle.setText("Application loaded successfully!");
+                        new LoginPage().setVisible(true);
+                        LoadingPage.this.dispose();
+                    }
+                }
+            }
+        });
+
+        // Start the thread
+        loadingPercentage.start();
+    }
 
     /**
      * @param args the command line arguments
@@ -180,6 +190,12 @@ public class LoadingPage extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -191,11 +207,11 @@ public class LoadingPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblHotelLogo;
     private javax.swing.JLabel lblLoadingTitle;
     private javax.swing.JLabel lblWelcomeTitle;
     private javax.swing.JProgressBar loadingProgressBar;
     private javax.swing.JPanel pnlLoginForm1;
+    private javax.swing.JPanel pnlMain;
     // End of variables declaration//GEN-END:variables
 }

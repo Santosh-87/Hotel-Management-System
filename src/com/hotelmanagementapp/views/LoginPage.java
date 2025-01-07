@@ -10,6 +10,13 @@ import javax.swing.JOptionPane;
  *
  * @author 23048594 Santosh Lama
  */
+/**
+ * This class represents the login page of the hotel management application.
+ * It allows the user (admin) to log in by entering their email address and password.
+ * The login credentials are validated, and if they are correct, the home page is displayed. 
+ * Additionally, it provides functionality for showing or hiding the password input.
+ * 
+ */
 public class LoginPage extends javax.swing.JFrame {
 
     /**
@@ -28,11 +35,11 @@ public class LoginPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlLoginFrame1 = new javax.swing.JPanel();
-        pnlLoginForm1 = new javax.swing.JPanel();
+        pnlLogin = new javax.swing.JPanel();
+        pnlForm = new javax.swing.JPanel();
         lblLoginWelcomeTitle1 = new javax.swing.JLabel();
         txtFieldEmailAddress1 = new javax.swing.JTextField();
-        btnLogin1 = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
         btnSignUp1 = new javax.swing.JButton();
         lblSubTitleForLoginInstructions1 = new javax.swing.JLabel();
         pwdFieldForLogin = new javax.swing.JPasswordField();
@@ -44,7 +51,7 @@ public class LoginPage extends javax.swing.JFrame {
         setLocation(new java.awt.Point(300, 0));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        pnlLoginFrame1.setBackground(new java.awt.Color(0, 31, 63));
+        pnlLogin.setBackground(new java.awt.Color(0, 31, 63));
 
         lblLoginWelcomeTitle1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblLoginWelcomeTitle1.setForeground(new java.awt.Color(27, 35, 86));
@@ -52,13 +59,13 @@ public class LoginPage extends javax.swing.JFrame {
 
         txtFieldEmailAddress1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Email address", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153))); // NOI18N
 
-        btnLogin1.setBackground(new java.awt.Color(27, 35, 86));
-        btnLogin1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnLogin1.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogin1.setText("LOGIN");
-        btnLogin1.addActionListener(new java.awt.event.ActionListener() {
+        btnLogin.setBackground(new java.awt.Color(27, 35, 86));
+        btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogin.setText("LOGIN");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin1ActionPerformed(evt);
+                btnLoginActionPerformed(evt);
             }
         });
 
@@ -70,11 +77,6 @@ public class LoginPage extends javax.swing.JFrame {
         lblSubTitleForLoginInstructions1.setText("Please login to your account by filling in the details");
 
         pwdFieldForLogin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153))); // NOI18N
-        pwdFieldForLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pwdFieldForLoginActionPerformed(evt);
-            }
-        });
 
         lblLoginBackground.setBackground(new java.awt.Color(0, 31, 63));
         lblLoginBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/loginBackground.png"))); // NOI18N
@@ -89,110 +91,119 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
-        lblErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
+        lblErrorMessage.setBackground(new java.awt.Color(255, 51, 0));
+        lblErrorMessage.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
 
-        javax.swing.GroupLayout pnlLoginForm1Layout = new javax.swing.GroupLayout(pnlLoginForm1);
-        pnlLoginForm1.setLayout(pnlLoginForm1Layout);
-        pnlLoginForm1Layout.setHorizontalGroup(
-            pnlLoginForm1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlLoginForm1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlFormLayout = new javax.swing.GroupLayout(pnlForm);
+        pnlForm.setLayout(pnlFormLayout);
+        pnlFormLayout.setHorizontalGroup(
+            pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFormLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(pnlLoginForm1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSubTitleForLoginInstructions1)
                     .addComponent(lblLoginWelcomeTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFieldEmailAddress1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlLoginForm1Layout.createSequentialGroup()
-                        .addGroup(pnlLoginForm1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(pnlLoginForm1Layout.createSequentialGroup()
-                                .addComponent(btnLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
-                                .addComponent(btnSignUp1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(pwdFieldForLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnShow, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblErrorMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                    .addGroup(pnlFormLayout.createSequentialGroup()
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSignUp1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlFormLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFieldEmailAddress1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlFormLayout.createSequentialGroup()
+                                .addComponent(pwdFieldForLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnShow, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(lblLoginBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        pnlLoginForm1Layout.setVerticalGroup(
-            pnlLoginForm1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlLoginForm1Layout.createSequentialGroup()
+        pnlFormLayout.setVerticalGroup(
+            pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFormLayout.createSequentialGroup()
                 .addGap(70, 70, 70)
                 .addComponent(lblLoginWelcomeTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblSubTitleForLoginInstructions1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtFieldEmailAddress1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(pnlLoginForm1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlLoginForm1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(pwdFieldForLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlLoginForm1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
+                .addComponent(txtFieldEmailAddress1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pwdFieldForLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlFormLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
                         .addComponent(btnShow)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlLoginForm1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblErrorMessage)
+                .addGap(22, 22, 22)
+                .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSignUp1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(lblLoginBackground, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout pnlLoginFrame1Layout = new javax.swing.GroupLayout(pnlLoginFrame1);
-        pnlLoginFrame1.setLayout(pnlLoginFrame1Layout);
-        pnlLoginFrame1Layout.setHorizontalGroup(
-            pnlLoginFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlLoginFrame1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlLoginLayout = new javax.swing.GroupLayout(pnlLogin);
+        pnlLogin.setLayout(pnlLoginLayout);
+        pnlLoginLayout.setHorizontalGroup(
+            pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlLoginLayout.createSequentialGroup()
                 .addGap(117, 117, 117)
-                .addComponent(pnlLoginForm1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(120, Short.MAX_VALUE))
         );
-        pnlLoginFrame1Layout.setVerticalGroup(
-            pnlLoginFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlLoginFrame1Layout.createSequentialGroup()
+        pnlLoginLayout.setVerticalGroup(
+            pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlLoginLayout.createSequentialGroup()
                 .addGap(79, 79, 79)
-                .addComponent(pnlLoginForm1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(85, Short.MAX_VALUE))
         );
 
-        getContentPane().add(pnlLoginFrame1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(pnlLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void pwdFieldForLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwdFieldForLoginActionPerformed
+/**
+     * Handles the login action when the "Login" button is clicked. Validates
+     * the entered email and password. If the credentials are correct, the
+     * current window is closed, and the home screen is displayed. Otherwise, an
+     * error message is shown.
+     *
+     * @param evt the ActionEvent triggered when the "Login" button is clicked
+     */
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_pwdFieldForLoginActionPerformed
-    int flag=0;
-    private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
-        // TODO add your handling code here:
-        
-        if(flag==0){
-            pwdFieldForLogin.setEchoChar((char)0);
-            btnShow.setText("Hide");
-            flag=1;
-        }
-        else{
-            pwdFieldForLogin.setEchoChar('*');
-            btnShow.setText("Show");
-            flag=0;
-        }
-    }//GEN-LAST:event_btnShowActionPerformed
-
-    private void btnLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin1ActionPerformed
-        // TODO add your handling code here:
-        if(txtFieldEmailAddress1.getText().equals("admin@gmail.com")&&pwdFieldForLogin.getText().equals("admin"))
-        {
+        if (txtFieldEmailAddress1.getText().equals("admin@gmail.com") && pwdFieldForLogin.getText().equals("admin")) {
             this.dispose();
             new HomePage().setVisible(true);
-        } 
-        else{
-            
+        } else {
             lblErrorMessage.setText("Incorrect username or password. Try again..");
         }
-    }//GEN-LAST:event_btnLogin1ActionPerformed
+    }//GEN-LAST:event_btnLoginActionPerformed
+    
+    /**
+     * Toggles the visibility of the password in the password field. When the
+     * "Show" button is clicked, the password becomes visible. When the "Hide"
+     * button is clicked, the password becomes masked.
+     *
+     * @param evt the ActionEvent triggered when the button is clicked
+     */
+    int flag = 0;
+    private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
+        // TODO add your handling code here:
+
+        if (flag == 0) {
+            pwdFieldForLogin.setEchoChar((char) 0);
+            btnShow.setText("Hide");
+            flag = 1;
+        } else {
+            pwdFieldForLogin.setEchoChar('*');
+            btnShow.setText("Show");
+            flag = 0;
+        }
+    }//GEN-LAST:event_btnShowActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,6 +234,18 @@ public class LoginPage extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -233,15 +256,15 @@ public class LoginPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnLogin1;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnShow;
     private javax.swing.JButton btnSignUp1;
     private javax.swing.JLabel lblErrorMessage;
     private javax.swing.JLabel lblLoginBackground;
     private javax.swing.JLabel lblLoginWelcomeTitle1;
     private javax.swing.JLabel lblSubTitleForLoginInstructions1;
-    private javax.swing.JPanel pnlLoginForm1;
-    private javax.swing.JPanel pnlLoginFrame1;
+    private javax.swing.JPanel pnlForm;
+    private javax.swing.JPanel pnlLogin;
     private javax.swing.JPasswordField pwdFieldForLogin;
     private javax.swing.JTextField txtFieldEmailAddress1;
     // End of variables declaration//GEN-END:variables

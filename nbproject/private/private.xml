@@ -3,16 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/lamab/Dropbox/PC/Documents/NetBeansProjects/HotelManagementApp/src/com/hotelmanagementapp/views/LoginPage.java</file>
-            <file>file:/C:/Users/lamab/Dropbox/PC/Documents/NetBeansProjects/HotelManagementApp/src/com/hotelmanagementapp/views/HomePage.java</file>
-            <file>file:/C:/Users/lamab/Dropbox/PC/Documents/NetBeansProjects/HotelManagementApp/src/com/hotelmanagementapp/views/CustomerCheckOut.java</file>
-            <file>file:/C:/Users/lamab/Dropbox/PC/Documents/NetBeansProjects/HotelManagementApp/src/com/hotelmanagementapp/util/ValidationUtil.java</file>
-            <file>file:/C:/Users/lamab/Dropbox/PC/Documents/NetBeansProjects/HotelManagementApp/src/com/hotelmanagementapp/views/AdminDashBoard.java</file>
-            <file>file:/C:/Users/lamab/Dropbox/PC/Documents/NetBeansProjects/HotelManagementApp/src/com/hotelmanagementapp/model/CustomerCheckInModel.java</file>
-            <file>file:/C:/Users/lamab/Dropbox/PC/Documents/NetBeansProjects/HotelManagementApp/src/com/hotelmanagementapp/views/LoadingPage.java</file>
-            <file>file:/C:/Users/lamab/Dropbox/PC/Documents/NetBeansProjects/HotelManagementApp/src/com/hotelmanagementapp/views/CustomerCheckIn.java</file>
-            <file>file:/C:/Users/lamab/Dropbox/PC/Documents/NetBeansProjects/HotelManagementApp/src/com/hotelmanagementapp/views/ManageRooms.java</file>
-            <file>file:/C:/Users/lamab/Dropbox/PC/Documents/NetBeansProjects/HotelManagementApp/src/com/hotelmanagementapp/model/RoomModel.java</file>
+            <file>file:/C:/Users/lamab/Dropbox/PC/Documents/NetBeansProjects/HotelManagementApp/src/com/hotelmanagementapp/controller/algorithms/MergeSort.java</file>
+            <file>file:/C:/Users/lamab/Dropbox/PC/Documents/NetBeansProjects/HotelManagementApp/src/com/hotelmanagementapp/controller/algorithms/BinarySearch.java</file>
+            <file>file:/C:/Users/lamab/Dropbox/PC/Documents/NetBeansProjects/HotelManagementApp/src/com/hotelmanagementapp/views/AdminPanel.java</file>
         </group>
     </open-files>
 </project-private>
