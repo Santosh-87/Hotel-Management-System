@@ -5,16 +5,15 @@
 package com.hotelmanagementapp.views;
 
 /**
- *
- * @author Santosh Lama 
- * LMU ID: 23048594
- */
-/**
- * HomePage class represents the main interface for the Hotel Management System.
+ * HomePage class represents the main control entry for the Hotel Management System.
  * It includes navigation options like a "Manage Operations" button and displays
  * the hotel logo and background image. On button click, it opens the
  * AdminPanel.
+ * 
+ * @author Santosh Lama 
+ * LMU ID: 23048594
  */
+
 public class HomePage extends javax.swing.JFrame {
 
     /**
@@ -116,6 +115,7 @@ public class HomePage extends javax.swing.JFrame {
         btnManageOperations.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnManageOperations.setForeground(new java.awt.Color(255, 255, 255));
         btnManageOperations.setText("Manage Operations");
+        btnManageOperations.setFocusable(false);
         btnManageOperations.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnManageOperationsActionPerformed(evt);

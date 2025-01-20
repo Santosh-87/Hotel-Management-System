@@ -28,8 +28,8 @@ public class SelectionSort {
      * descending order.
      *
      * @param roomList the list of roomModel objects to be sorted
-     * @param isDesc specifies the sort order (true for descending, false for
-     * ascending)
+     * @param isAscending specifies the sort order (true for ascending, false for
+     * descending)
      * @return the sorted list
      */
     public List<RoomModel> sortByRoomPrice(List<RoomModel> roomList, boolean isAscending) {

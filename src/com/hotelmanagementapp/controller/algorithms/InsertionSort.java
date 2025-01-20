@@ -13,13 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Implements the insertion sort algorithm to sort a list of CustomerModel
+ * objects by customer name in either ascending or descending order.
  *
  * @author Santosh Lama 
  * LMU ID: 23048594
- */
-/**
- * Implements the insertion sort algorithm to sort a list of CustomerModel
- * objects by customer name in either ascending or descending order.
  */
 public class InsertionSort {
 
@@ -58,7 +56,7 @@ public class InsertionSort {
     /**
      * Determines whether two strings should be swapped based on the sort order.
      *
-     * @param current the current string
+     * @param currentName the current string
      * @param key the key string
      * @param isAscending specifies the sort order (true for ascending, false
      * for descending)

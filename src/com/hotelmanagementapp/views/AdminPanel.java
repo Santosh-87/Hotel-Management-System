@@ -4,10 +4,11 @@ import com.hotelmanagementapp.controller.algorithms.BinarySearch;
 import com.hotelmanagementapp.controller.algorithms.InsertionSort;
 import com.hotelmanagementapp.controller.algorithms.MergeSort;
 import com.hotelmanagementapp.controller.algorithms.SelectionSort;
+import com.hotelmanagementapp.controller.datastructures.CustomerQueue;
+import com.hotelmanagementapp.controller.datastructures.CustomerStack;
 import com.hotelmanagementapp.model.CustomerModel;
 import com.hotelmanagementapp.model.RoomModel;
 import com.hotelmanagementapp.util.ValidationUtil;
-import com.hotelmanagementapp.views.LoginPage;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,14 +23,11 @@ import javax.swing.table.DefaultTableModel;
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 /**
+ * Represents the admin panel in the hotel management system. This class serves
+ * as the central hub for all administrative operations like managing rooms,
+ * managing check-in/out and view dashboard along with log out and exit button
  *
- * @author Santosh Lama
- * LMU ID: 23048594
- */
-/**
- * Represents the admin panel in the hotel management system. 
- * This class serves as the central hub for all administrative operations like  
- * managing rooms, managing check-in/out and view dashboard along with log out and exit button
+ * @author Santosh Lama LMU ID: 23048594
  */
 public class AdminPanel extends javax.swing.JFrame {
 
@@ -40,6 +38,8 @@ public class AdminPanel extends javax.swing.JFrame {
     private final SelectionSort selectionSort;
     private final InsertionSort insertionSort;
     private final BinarySearch binarySearch;
+    private final CustomerQueue customerQueue;
+    private final CustomerStack customerStack;
     private List<RoomModel> sortedRoomList;
     private List<CustomerModel> sortedCheckInList;
 
@@ -55,13 +55,15 @@ public class AdminPanel extends javax.swing.JFrame {
         selectionSort = new SelectionSort();
         insertionSort = new InsertionSort();
         binarySearch = new BinarySearch();
-        sortedRoomList = mergeSort.sortByRoomNumber(roomList, isAscending);
+        sortedRoomList = new ArrayList<>();
         sortedCheckInList = new ArrayList<>();
+        customerQueue = new CustomerQueue();
+        customerStack = new CustomerStack();
         addInitialRoomInformation();
-        loadRoomListToTable(roomList);
-        loadRoomListToTable(sortedRoomList);
         addInitialCheckInInformation();
+        loadRoomListToTable(roomList);
         loadCustomerListToTable(checkInList);
+        listDataToQueue(checkInList);
     }
 
     /**
@@ -112,7 +114,7 @@ public class AdminPanel extends javax.swing.JFrame {
         pnlViewTableForRooms = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRoom = new javax.swing.JTable();
-        btnSwitchPanel = new javax.swing.JButton();
+        btnSwitchPanelForManageRooms = new javax.swing.JButton();
         cmbSortInRoom = new javax.swing.JComboBox<>();
         lblSortBy = new javax.swing.JLabel();
         btnAscendingOrDescendingInRoom = new javax.swing.JButton();
@@ -149,7 +151,7 @@ public class AdminPanel extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblCustomerCheckIn = new javax.swing.JTable();
         btnAddRoomDetails2 = new javax.swing.JButton();
-        btnSwitchPanel1 = new javax.swing.JButton();
+        btnSwitchPanelInCheckIn = new javax.swing.JButton();
         cmbSortInCustomer = new javax.swing.JComboBox<>();
         lblSortBy1 = new javax.swing.JLabel();
         btnAscendingOrDescendingInCustomer = new javax.swing.JButton();
@@ -160,25 +162,13 @@ public class AdminPanel extends javax.swing.JFrame {
         lblManageCheckOutBackground = new javax.swing.JLabel();
         pnlMainBodyForCustomerCheckOut = new javax.swing.JPanel();
         pnlFormForCheckOutForm = new javax.swing.JPanel();
-        lblRoomNumber1 = new javax.swing.JLabel();
-        txtFieldRoomNumber1 = new javax.swing.JTextField();
-        btnSearch = new javax.swing.JButton();
-        btnCheckOutNow = new javax.swing.JButton();
-        btnClear1 = new javax.swing.JButton();
-        btnViewTableForCheckOutDetails = new javax.swing.JButton();
-        txtFieldCustomerName1 = new javax.swing.JTextField();
-        txtFieldMobileNumber1 = new javax.swing.JTextField();
-        txtFieldTotalAmount = new javax.swing.JTextField();
-        txtFieldPricePerDay = new javax.swing.JTextField();
-        lblCustomerName1 = new javax.swing.JLabel();
-        lblMobileNumber1 = new javax.swing.JLabel();
-        lblCheckInDate1 = new javax.swing.JLabel();
-        lblCheckOutDate = new javax.swing.JLabel();
-        lblPricePerDay = new javax.swing.JLabel();
-        lblTotalAmount = new javax.swing.JLabel();
-        btnBackToHomePage1 = new javax.swing.JButton();
-        jdcForCheckInDate1 = new com.toedter.calendar.JDateChooser();
-        jdcForCheckOutDate = new com.toedter.calendar.JDateChooser();
+        btnCheckOut = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblForCustomerStack = new javax.swing.JTable();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tblForCustomerQueue = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         pnlTableForCheckOut = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -264,7 +254,7 @@ public class AdminPanel extends javax.swing.JFrame {
 
         lblExitButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblExitButton.setForeground(new java.awt.Color(255, 255, 255));
-        lblExitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/close (1).png"))); // NOI18N
+        lblExitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/closeIcon.png"))); // NOI18N
         lblExitButton.setText("Exit");
         lblExitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -535,13 +525,13 @@ public class AdminPanel extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblRoom);
 
-        btnSwitchPanel.setBackground(new java.awt.Color(153, 51, 0));
-        btnSwitchPanel.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        btnSwitchPanel.setForeground(new java.awt.Color(255, 255, 255));
-        btnSwitchPanel.setText("Switch Panel");
-        btnSwitchPanel.addActionListener(new java.awt.event.ActionListener() {
+        btnSwitchPanelForManageRooms.setBackground(new java.awt.Color(153, 51, 0));
+        btnSwitchPanelForManageRooms.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        btnSwitchPanelForManageRooms.setForeground(new java.awt.Color(255, 255, 255));
+        btnSwitchPanelForManageRooms.setText("Switch Panel");
+        btnSwitchPanelForManageRooms.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSwitchPanelActionPerformed(evt);
+                btnSwitchPanelForManageRoomsActionPerformed(evt);
             }
         });
 
@@ -573,7 +563,7 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addGroup(pnlViewTableForRoomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 841, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlViewTableForRoomsLayout.createSequentialGroup()
-                        .addComponent(btnSwitchPanel)
+                        .addComponent(btnSwitchPanelForManageRooms)
                         .addGap(101, 101, 101)
                         .addComponent(lblSortBy)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -588,7 +578,7 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(pnlViewTableForRoomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnlViewTableForRoomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnSwitchPanel)
+                        .addComponent(btnSwitchPanelForManageRooms)
                         .addComponent(cmbSortInRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblSortBy))
                     .addComponent(btnAscendingOrDescendingInRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
@@ -898,13 +888,13 @@ public class AdminPanel extends javax.swing.JFrame {
         btnAddRoomDetails2.setForeground(new java.awt.Color(255, 255, 255));
         btnAddRoomDetails2.setText("Add Room Details");
 
-        btnSwitchPanel1.setBackground(new java.awt.Color(153, 51, 0));
-        btnSwitchPanel1.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        btnSwitchPanel1.setForeground(new java.awt.Color(255, 255, 255));
-        btnSwitchPanel1.setText("Switch Panel");
-        btnSwitchPanel1.addActionListener(new java.awt.event.ActionListener() {
+        btnSwitchPanelInCheckIn.setBackground(new java.awt.Color(153, 51, 0));
+        btnSwitchPanelInCheckIn.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        btnSwitchPanelInCheckIn.setForeground(new java.awt.Color(255, 255, 255));
+        btnSwitchPanelInCheckIn.setText("Switch Panel");
+        btnSwitchPanelInCheckIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSwitchPanel1ActionPerformed(evt);
+                btnSwitchPanelInCheckInActionPerformed(evt);
             }
         });
 
@@ -966,26 +956,24 @@ public class AdminPanel extends javax.swing.JFrame {
         pnlViewTableForCheckInLayout.setHorizontalGroup(
             pnlViewTableForCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlViewTableForCheckInLayout.createSequentialGroup()
-                .addGroup(pnlViewTableForCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlViewTableForCheckInLayout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(btnSwitchPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(lblSortBy1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbSortInCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAscendingOrDescendingInCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58)
-                        .addComponent(txtFieldForCustomerSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSearchCustomer)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnViewAllDataForCheckIn))
-                    .addGroup(pnlViewTableForCheckInLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1037, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGap(58, 58, 58)
+                .addComponent(btnSwitchPanelInCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(lblSortBy1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmbSortInCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAscendingOrDescendingInCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58)
+                .addComponent(txtFieldForCustomerSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSearchCustomer)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnViewAllDataForCheckIn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(pnlViewTableForCheckInLayout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1037, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 22, Short.MAX_VALUE))
             .addGroup(pnlViewTableForCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlViewTableForCheckInLayout.createSequentialGroup()
                     .addGap(442, 442, 442)
@@ -999,7 +987,7 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addGroup(pnlViewTableForCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbSortInCustomer)
                     .addComponent(btnAscendingOrDescendingInCustomer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(btnSwitchPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSwitchPanelInCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblSortBy1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlViewTableForCheckInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnSearchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -1043,73 +1031,69 @@ public class AdminPanel extends javax.swing.JFrame {
 
         pnlFormForCheckOutForm.setBackground(new java.awt.Color(234, 216, 177));
 
-        lblRoomNumber1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        lblRoomNumber1.setForeground(new java.awt.Color(102, 102, 102));
-        lblRoomNumber1.setText("Room Number");
-
-        btnSearch.setBackground(new java.awt.Color(153, 0, 0));
-        btnSearch.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnSearch.setForeground(new java.awt.Color(255, 255, 255));
-        btnSearch.setText("Search");
-
-        btnCheckOutNow.setBackground(new java.awt.Color(58, 109, 140));
-        btnCheckOutNow.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnCheckOutNow.setForeground(new java.awt.Color(255, 255, 255));
-        btnCheckOutNow.setText("Check Out Now");
-        btnCheckOutNow.addActionListener(new java.awt.event.ActionListener() {
+        btnCheckOut.setBackground(new java.awt.Color(58, 109, 140));
+        btnCheckOut.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCheckOut.setForeground(new java.awt.Color(255, 255, 255));
+        btnCheckOut.setText("Check Out");
+        btnCheckOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCheckOutNowActionPerformed(evt);
+                btnCheckOutActionPerformed(evt);
             }
         });
 
-        btnClear1.setBackground(new java.awt.Color(153, 0, 0));
-        btnClear1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnClear1.setForeground(new java.awt.Color(255, 255, 255));
-        btnClear1.setText("Clear");
+        tblForCustomerStack.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        btnViewTableForCheckOutDetails.setBackground(new java.awt.Color(58, 109, 140));
-        btnViewTableForCheckOutDetails.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnViewTableForCheckOutDetails.setForeground(new java.awt.Color(255, 255, 255));
-        btnViewTableForCheckOutDetails.setText("View Table");
-        btnViewTableForCheckOutDetails.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewTableForCheckOutDetailsActionPerformed(evt);
+            },
+            new String [] {
+                "Customer Name", "Check-In Date", "Check-Out Date"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        jScrollPane4.setViewportView(tblForCustomerStack);
+        if (tblForCustomerStack.getColumnModel().getColumnCount() > 0) {
+            tblForCustomerStack.getColumnModel().getColumn(0).setResizable(false);
+            tblForCustomerStack.getColumnModel().getColumn(1).setResizable(false);
+            tblForCustomerStack.getColumnModel().getColumn(2).setResizable(false);
+        }
 
-        lblCustomerName1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        lblCustomerName1.setForeground(new java.awt.Color(102, 102, 102));
-        lblCustomerName1.setText("Customer Name");
+        tblForCustomerQueue.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        lblMobileNumber1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        lblMobileNumber1.setForeground(new java.awt.Color(102, 102, 102));
-        lblMobileNumber1.setText("Mobile Number");
+            },
+            new String [] {
+                "Customer Name", "Room Number", "Check-In Date"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
-        lblCheckInDate1.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        lblCheckInDate1.setForeground(new java.awt.Color(102, 102, 102));
-        lblCheckInDate1.setText("Check-In Date");
-
-        lblCheckOutDate.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        lblCheckOutDate.setForeground(new java.awt.Color(102, 102, 102));
-        lblCheckOutDate.setText("Check-Out Date");
-
-        lblPricePerDay.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        lblPricePerDay.setForeground(new java.awt.Color(102, 102, 102));
-        lblPricePerDay.setText("Price Per Day");
-
-        lblTotalAmount.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        lblTotalAmount.setForeground(new java.awt.Color(102, 102, 102));
-        lblTotalAmount.setText("Total Amount");
-
-        btnBackToHomePage1.setBackground(new java.awt.Color(58, 109, 140));
-        btnBackToHomePage1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnBackToHomePage1.setForeground(new java.awt.Color(255, 255, 255));
-        btnBackToHomePage1.setText("Back To Home Page");
-        btnBackToHomePage1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBackToHomePage1ActionPerformed(evt);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        jScrollPane5.setViewportView(tblForCustomerQueue);
+        if (tblForCustomerQueue.getColumnModel().getColumnCount() > 0) {
+            tblForCustomerQueue.getColumnModel().getColumn(0).setResizable(false);
+            tblForCustomerQueue.getColumnModel().getColumn(1).setResizable(false);
+            tblForCustomerQueue.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(58, 109, 140));
+        jLabel1.setText("Customer Check-Out History");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(58, 109, 140));
+        jLabel2.setText("Customer Check-In Records");
 
         javax.swing.GroupLayout pnlFormForCheckOutFormLayout = new javax.swing.GroupLayout(pnlFormForCheckOutForm);
         pnlFormForCheckOutForm.setLayout(pnlFormForCheckOutFormLayout);
@@ -1118,96 +1102,37 @@ public class AdminPanel extends javax.swing.JFrame {
             .addGroup(pnlFormForCheckOutFormLayout.createSequentialGroup()
                 .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlFormForCheckOutFormLayout.createSequentialGroup()
-                        .addGap(345, 345, 345)
-                        .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblRoomNumber1)
-                            .addGroup(pnlFormForCheckOutFormLayout.createSequentialGroup()
-                                .addComponent(txtFieldRoomNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(btnSearch))))
+                        .addGap(438, 438, 438)
+                        .addComponent(btnCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlFormForCheckOutFormLayout.createSequentialGroup()
-                        .addGap(151, 151, 151)
+                        .addGap(41, 41, 41)
                         .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlFormForCheckOutFormLayout.createSequentialGroup()
-                                .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlFormForCheckOutFormLayout.createSequentialGroup()
-                                        .addComponent(txtFieldCustomerName1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(167, 167, 167))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFormForCheckOutFormLayout.createSequentialGroup()
-                                        .addComponent(btnCheckOutNow)
-                                        .addGap(47, 47, 47)
-                                        .addComponent(btnClear1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(43, 43, 43)))
-                                .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtFieldMobileNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblMobileNumber1)
-                                    .addGroup(pnlFormForCheckOutFormLayout.createSequentialGroup()
-                                        .addGap(15, 15, 15)
-                                        .addComponent(btnViewTableForCheckOutDetails))))
-                            .addComponent(lblCustomerName1)
-                            .addComponent(lblCheckInDate1)
-                            .addComponent(lblPricePerDay)
-                            .addGroup(pnlFormForCheckOutFormLayout.createSequentialGroup()
-                                .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jdcForCheckInDate1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtFieldPricePerDay, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE))
-                                .addGap(167, 167, 167)
-                                .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtFieldTotalAmount)
-                                    .addComponent(lblTotalAmount)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFormForCheckOutFormLayout.createSequentialGroup()
-                                        .addComponent(lblCheckOutDate)
-                                        .addGap(129, 129, 129))
-                                    .addComponent(jdcForCheckOutDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                    .addGroup(pnlFormForCheckOutFormLayout.createSequentialGroup()
-                        .addGap(405, 405, 405)
-                        .addComponent(btnBackToHomePage1)))
-                .addContainerGap(223, Short.MAX_VALUE))
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(134, 134, 134)
+                        .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         pnlFormForCheckOutFormLayout.setVerticalGroup(
             pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFormForCheckOutFormLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(lblRoomNumber1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFieldRoomNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch))
-                .addGap(11, 11, 11)
-                .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCustomerName1)
-                    .addComponent(lblMobileNumber1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFieldCustomerName1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFieldMobileNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCheckInDate1)
-                    .addComponent(lblCheckOutDate))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jdcForCheckOutDate, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                    .addComponent(jdcForCheckInDate1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPricePerDay)
-                    .addComponent(lblTotalAmount))
                 .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlFormForCheckOutFormLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFieldPricePerDay, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFieldTotalAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pnlFormForCheckOutFormLayout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnCheckOutNow, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnClear1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnViewTableForCheckOutDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBackToHomePage1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(35, 35, 35)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFormForCheckOutFormLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)))
+                .addGroup(pnlFormForCheckOutFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
 
         pnlMainBodyForCustomerCheckOut.add(pnlFormForCheckOutForm, "card2");
@@ -1254,7 +1179,7 @@ public class AdminPanel extends javax.swing.JFrame {
                 .addGroup(pnlTableForCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(switchPanelFromCheckOutTable)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 924, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         pnlTableForCheckOutLayout.setVerticalGroup(
             pnlTableForCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1274,14 +1199,14 @@ public class AdminPanel extends javax.swing.JFrame {
             pnlForCustomerCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlForCustomerCheckOutLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(pnlForCustomerCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblManageCheckOutBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlMainBodyForCustomerCheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(pnlForCustomerCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlMainBodyForCustomerCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblManageCheckOutBackground)))
         );
         pnlForCustomerCheckOutLayout.setVerticalGroup(
             pnlForCustomerCheckOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlForCustomerCheckOutLayout.createSequentialGroup()
-                .addGap(84, 84, 84)
+                .addGap(90, 90, 90)
                 .addComponent(lblManageCheckOutBackground)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlMainBodyForCustomerCheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -1297,8 +1222,7 @@ public class AdminPanel extends javax.swing.JFrame {
 
         pnlForTotalRooms.setBackground(new java.awt.Color(58, 109, 140));
 
-        lblTotalRoomsTitleAndIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/totalRooms.png"))); // NOI18N
-        lblTotalRoomsTitleAndIcon.setText("jLabel2");
+        lblTotalRoomsTitleAndIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/TotalRooms.png"))); // NOI18N
 
         lblForTotalRoomsData.setFont(new java.awt.Font("Segoe UI", 1, 80)); // NOI18N
         lblForTotalRoomsData.setForeground(new java.awt.Color(255, 255, 255));
@@ -1310,17 +1234,18 @@ public class AdminPanel extends javax.swing.JFrame {
             pnlForTotalRoomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlForTotalRoomsLayout.createSequentialGroup()
                 .addComponent(lblTotalRoomsTitleAndIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblForTotalRoomsData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblForTotalRoomsData, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pnlForTotalRoomsLayout.setVerticalGroup(
             pnlForTotalRoomsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTotalRoomsTitleAndIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnlForTotalRoomsLayout.createSequentialGroup()
+                .addComponent(lblTotalRoomsTitleAndIcon)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlForTotalRoomsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblForTotalRoomsData, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
+                .addGap(67, 67, 67))
         );
 
         pnlForTotalCheckIns.setBackground(new java.awt.Color(51, 0, 51));
@@ -1338,9 +1263,9 @@ public class AdminPanel extends javax.swing.JFrame {
             pnlForTotalCheckInsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlForTotalCheckInsLayout.createSequentialGroup()
                 .addComponent(lblTotalCheckInTitleAndIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblTotalCheckInData, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 34, Short.MAX_VALUE))
+                .addContainerGap())
         );
         pnlForTotalCheckInsLayout.setVerticalGroup(
             pnlForTotalCheckInsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1350,12 +1275,12 @@ public class AdminPanel extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlForTotalCheckInsLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblTotalCheckInData, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
+                .addGap(68, 68, 68))
         );
 
         pnlForTotalRevenue.setBackground(new java.awt.Color(0, 106, 103));
 
-        lblTotalRevenueTitleAndIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/revenueIcon.png"))); // NOI18N
+        lblTotalRevenueTitleAndIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/revenueToday.png"))); // NOI18N
 
         lblTotalRevenueData.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         lblTotalRevenueData.setForeground(new java.awt.Color(255, 255, 255));
@@ -1367,17 +1292,17 @@ public class AdminPanel extends javax.swing.JFrame {
             pnlForTotalRevenueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlForTotalRevenueLayout.createSequentialGroup()
                 .addComponent(lblTotalRevenueTitleAndIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblTotalRevenueData)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         pnlForTotalRevenueLayout.setVerticalGroup(
             pnlForTotalRevenueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblTotalRevenueTitleAndIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlForTotalRevenueLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnlForTotalRevenueLayout.createSequentialGroup()
+                .addGap(76, 76, 76)
                 .addComponent(lblTotalRevenueData, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnlForTotalCustomers.setBackground(new java.awt.Color(166, 166, 166));
@@ -1394,17 +1319,17 @@ public class AdminPanel extends javax.swing.JFrame {
             pnlForTotalCustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlForTotalCustomersLayout.createSequentialGroup()
                 .addComponent(lblTotalCustomerTitleAndIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(35, 35, 35)
                 .addComponent(lblTotalCustomersData)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 41, Short.MAX_VALUE))
         );
         pnlForTotalCustomersLayout.setVerticalGroup(
             pnlForTotalCustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblTotalCustomerTitleAndIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlForTotalCustomersLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnlForTotalCustomersLayout.createSequentialGroup()
+                .addGap(48, 48, 48)
                 .addComponent(lblTotalCustomersData, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -1483,7 +1408,7 @@ public class AdminPanel extends javax.swing.JFrame {
 
         // Validate Room Number
         if (roomNumberStr.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Room Number is required. Please enter a valid room number.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Room Number is required to update. Please enter a valid room number.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             txtFieldRoomNumber.requestFocus();
         } else if (!ValidationUtil.isValidRoomNumber(roomNumberStr)) {
             JOptionPane.showMessageDialog(this, "Invalid Room Number. It must be a numeric value (1-3 digits) and cannot start with a zero.", "Validation Error", JOptionPane.ERROR_MESSAGE);
@@ -1495,6 +1420,8 @@ public class AdminPanel extends javax.swing.JFrame {
         } else if (!ValidationUtil.isValidPrice(priceStr)) {
             JOptionPane.showMessageDialog(this, "Invalid Price. It must be a positive number with optional decimal points (up to 2 decimal places).", "Validation Error", JOptionPane.ERROR_MESSAGE);
             txtFieldPrice.requestFocus();
+        } else if (!ValidationUtil.isValidBedType(bedType)) {
+            JOptionPane.showMessageDialog(this, "Invalid Bed Type. It must be either 'Single-bed' or 'Double-bed'.", "Validation Error", JOptionPane.ERROR_MESSAGE);
         } else {
             // Proceed to update data
             int roomNumber = Integer.parseInt(roomNumberStr);  // Convert to int
@@ -1509,12 +1436,12 @@ public class AdminPanel extends javax.swing.JFrame {
      */
     private void btnClearRoomFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearRoomFieldsActionPerformed
         // TODO add your handling code here:
-        txtFieldRoomNumber.setText("");  // Clears the text field for room number
-        cmbRoomType.setSelectedIndex(0);  // Reset the room type dropdown to the default (first item)
-        cmbRoomGrade.setSelectedIndex(0); // Reset the room grade dropdown to the default (first item)
-        txtFieldPrice.setText("");  // Clears the text field for price
+        txtFieldRoomNumber.setText("");
+        cmbRoomType.setSelectedIndex(-1);
+        cmbRoomGrade.setSelectedIndex(-1);
+        txtFieldPrice.setText("");
         btnGroupBedType.clearSelection();    // Unselects any selected radio buttons in the group
-        cmbStatus.setSelectedIndex(0);  // Reset the status dropdown to the default (first item)
+        cmbStatus.setSelectedIndex(-1);  // Reset the status dropdown to the default (first item)
         txtFieldRoomNumber.requestFocus();  // Focuses back on the room number input field
     }//GEN-LAST:event_btnClearRoomFieldsActionPerformed
 
@@ -1531,7 +1458,17 @@ public class AdminPanel extends javax.swing.JFrame {
      * duplicates.
      */
     private void btnAddRoomDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddRoomDetailsActionPerformed
+        // Check if all fields are empty
+        if (txtFieldRoomNumber.getText().trim().isEmpty()
+                && cmbRoomType.getSelectedIndex() == 0
+                && cmbRoomGrade.getSelectedIndex() == 0
+                && txtFieldPrice.getText().trim().isEmpty()
+                && !rbSingleBed.isSelected() && !rbDoubleBed.isSelected()
+                && cmbStatus.getSelectedIndex() == 0) {
 
+            JOptionPane.showMessageDialog(this, "All fields are empty. Please fill in the details.", "Empty Fields Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         String roomNumberStr = txtFieldRoomNumber.getText().trim();
         String roomType = cmbRoomType.getSelectedItem().toString().trim();
         String roomGrade = cmbRoomGrade.getSelectedItem().toString().trim();
@@ -1550,19 +1487,9 @@ public class AdminPanel extends javax.swing.JFrame {
             txtFieldRoomNumber.requestFocus();
             return;
         }
-        if (roomType.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Room Type is required. Please select either AC or Non-AC.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-            cmbRoomType.requestFocus();
-            return;
-        }
         if (!ValidationUtil.isValidRoomType(roomType)) {
             JOptionPane.showMessageDialog(this, "Invalid Room Type. Select either 'AC' or 'Non-AC'.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             cmbRoomType.requestFocus();
-            return;
-        }
-        if (roomGrade.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Room Grade is required. 'Standard', 'Deluxe', 'Family Suite' or 'Presidential'.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-            cmbRoomGrade.requestFocus();
             return;
         }
         if (!ValidationUtil.isValidRoomGrade(roomGrade)) {
@@ -1578,10 +1505,6 @@ public class AdminPanel extends javax.swing.JFrame {
         if (!ValidationUtil.isValidPrice(priceStr)) {
             JOptionPane.showMessageDialog(this, "Invalid Price. It must be a positive number with optional decimal points (up to 2 decimal places).", "Validation Error", JOptionPane.ERROR_MESSAGE);
             txtFieldPrice.requestFocus();
-            return;
-        }
-        if (bedType.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Bed Type is required. Please select either Single-bed or Double-bed.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (!ValidationUtil.isValidBedType(bedType)) {
@@ -1646,9 +1569,6 @@ public class AdminPanel extends javax.swing.JFrame {
      * Handles the action of navigating back to the home page.
      *
      * @param evt ActionEvent triggered when the button is clicked
-     * @return String - This method does not return a value
-     * @return boolean - This method does not return true or false
-     * @throws None
      */
     private void btnBackToHomePageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToHomePageActionPerformed
         // TODO add your handling code here:
@@ -1660,53 +1580,41 @@ public class AdminPanel extends javax.swing.JFrame {
      * Switches the visible panel to the "Manage Rooms" form after viewing table
      *
      * @param evt ActionEvent triggered when the button is clicked
-     * @return String - This method does not return a value
-     * @return boolean - This method does not return true or false
-     * @throws None
      */
-    private void btnSwitchPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSwitchPanelActionPerformed
+    private void btnSwitchPanelForManageRoomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSwitchPanelForManageRoomsActionPerformed
         // TODO add your handling code here:
         pnlFormForManageRooms.setVisible(true);
         pnlViewTableForRooms.setVisible(false);
-    }//GEN-LAST:event_btnSwitchPanelActionPerformed
+    }//GEN-LAST:event_btnSwitchPanelForManageRoomsActionPerformed
 
     /**
      * Performs the check-in operation for a customer.
      *
      * @param evt ActionEvent triggered when the button is clicked
-     * @return String - This method does not return a value
-     * @return boolean - This method does not return true or false
-     * @throws None
      */
     private void btnCheckInNowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckInNowActionPerformed
 
+        if (txtFieldCustomerName.getText().trim().isEmpty()
+                && txtFieldMobileNumber.getText().trim().isEmpty()
+                && !rbMaleInCheckIn.isSelected() && !rbFemaleInCheckIn.isSelected()
+                && txtFieldNationalityInCheckIn.getText().trim().isEmpty()
+                && cmbMealPlanForCheckIn.getSelectedIndex() == 0
+                && !rbMorning.isSelected() && !rbAfternoon.isSelected() && !rbEvening.isSelected()
+                && txtFieldRoomNumberCheckIn.getText().trim().isEmpty()
+                && jdcForCheckInDate.getDate() == null) {
+
+            JOptionPane.showMessageDialog(this,
+                    "All fields are empty. Please fill in the details.",
+                    "Empty Fields Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         // Retrieve input values
         String customerName = txtFieldCustomerName.getText().trim();
         String mobileNumber = txtFieldMobileNumber.getText().trim();
         String gender = rbMaleInCheckIn.isSelected() ? "Male" : (rbFemaleInCheckIn.isSelected() ? "Female" : "");
         String nationality = txtFieldNationalityInCheckIn.getText().trim();
         String mealPlan = cmbMealPlanForCheckIn.getSelectedItem().toString().trim();
-        // Validate Check-In Preference
-        String checkInPreference = null;
-
-        if (rbMorning.isSelected()) {
-            checkInPreference = "Morning";
-        } else if (rbAfternoon.isSelected()) {
-            checkInPreference = "Afternoon";
-        } else if (rbEvening.isSelected()) {
-            checkInPreference = "Evening";
-        }
-
-// Check if none of the radio buttons are selected
-        if (checkInPreference == null) {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Check-In Preference is required. Please select either Morning, Afternoon, or Evening.",
-                    "Validation Error",
-                    JOptionPane.ERROR_MESSAGE
-            );
-            return; // Stop further execution
-        }
         String roomNumberStr = txtFieldRoomNumberCheckIn.getText().trim();
 
         // Get the selected check-in date
@@ -1759,22 +1667,31 @@ public class AdminPanel extends javax.swing.JFrame {
             txtFieldNationalityInCheckIn.requestFocus();
             return;
         }
+        // Validate Check-In Preference
+        String checkInPreference = null;
 
-        // Validate Meal Plan
-        if (mealPlan.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Meal Plan is required. Please select either Breakfast only, Full Board or No Meal.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-            cmbMealPlanForCheckIn.requestFocus();
-            return;
+        if (rbMorning.isSelected()) {
+            checkInPreference = "Morning";
+        } else if (rbAfternoon.isSelected()) {
+            checkInPreference = "Afternoon";
+        } else if (rbEvening.isSelected()) {
+            checkInPreference = "Evening";
         }
+
+        // Check if none of the radio buttons are selected
+        if (checkInPreference == null) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Check-In Preference is required. Please select either Morning, Afternoon, or Evening.",
+                    "Validation Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return; // Stop further execution
+        }
+
         if (!ValidationUtil.isValidMealPlan(mealPlan)) {
             JOptionPane.showMessageDialog(this, "Invalid Meal Plan. Select either 'Breakfast only', 'Full Board', or 'No Meal'.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             cmbMealPlanForCheckIn.requestFocus();
-            return;
-        }
-
-        // Validate check in preference Type
-        if (checkInPreference.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Check In Preferrred Time is required. Please select either Morning, Afternoon or Evening.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (!ValidationUtil.isValidCheckInPreference(checkInPreference)) {
@@ -1830,8 +1747,9 @@ public class AdminPanel extends javax.swing.JFrame {
         // If all validations pass, save the check-in details
         CustomerModel checkInDetails = new CustomerModel(
                 customerName, mobileNumber, gender, nationality, checkInPreference, mealPlan, roomNumber, checkInDate);
-        checkInList.add(checkInDetails);
         addCheckInData(checkInDetails);
+        customerQueue.enQueue(checkInDetails);
+        addDataToQueueTable(checkInDetails);
 
         // Update the room's status to "Booked"
         updateRoomStatusInTableAndList(roomNumber, "Booked");
@@ -1870,7 +1788,6 @@ public class AdminPanel extends javax.swing.JFrame {
      * Switches the panel to show the check-in table view.
      *
      * @param evt The ActionEvent triggered by the button click.
-     * @throws No exceptions are thrown in this method.
      */
     private void btnViewTableCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewTableCheckInActionPerformed
         pnlFormForCheckIn.setVisible(false);
@@ -1882,7 +1799,6 @@ public class AdminPanel extends javax.swing.JFrame {
      * state.
      *
      * @param evt The ActionEvent triggered by the button click.
-     * @throws No exceptions are thrown in this method.
      */
     private void btnClearCheckInFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearCheckInFieldsActionPerformed
 
@@ -1893,16 +1809,12 @@ public class AdminPanel extends javax.swing.JFrame {
         txtFieldRoomNumberCheckIn.setText("");    // Clears the room number field
 
         btnGroupGender.clearSelection();
-        rbMaleInCheckIn.setSelected(false);          // Optionally deselects the Male radio button
-        rbFemaleInCheckIn.setSelected(false);        // Optionally deselects the Female radio button
-
         // Reset combo box for room type
-        cmbRoomType.setSelectedIndex(0);    // Resets the combo box to the default (first) item
+        cmbRoomType.setSelectedIndex(-1);    // Resets the combo box
 
-        // Reset radio buttons for bed type
-        rbMorning.setSelected(false);     // Deselects the Single-bed option
-        rbEvening.setSelected(false);     // Deselects the Double-bed option
-
+        // Reset radio buttons for check-in preference
+        btnGroupCheckInPreference.clearSelection();
+        cmbMealPlanForCheckIn.setSelectedIndex(-1);
         // Optionally focus the first input field after clearing
         txtFieldCustomerName.requestFocus(); // Sets focus back to the customer name field
     }//GEN-LAST:event_btnClearCheckInFieldsActionPerformed
@@ -1911,7 +1823,6 @@ public class AdminPanel extends javax.swing.JFrame {
      * Navigates the user back to the home screen
      *
      * @param evt The ActionEvent triggered by the button click.
-     * @throws No exceptions are thrown in this method.
      */
     private void btnBackToHomeFromCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToHomeFromCheckInActionPerformed
         // TODO add your handling code here:
@@ -1951,8 +1862,6 @@ public class AdminPanel extends javax.swing.JFrame {
      * Updates the check-in details after validating all input fields.
      *
      * @param evt The ActionEvent triggered by the button click.
-     * @return String: "Returns no value (void method)."
-     * @return boolean: "This method does not return a boolean value."
      */
     private void btnUpdateCheckInDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCheckInDetailsActionPerformed
 
@@ -2026,21 +1935,17 @@ public class AdminPanel extends javax.swing.JFrame {
      * Switches the panel to display the check-in form view.
      *
      * @param evt The ActionEvent triggered by the button click.
-     * @return String: Returns no value (void method).
-     * @return boolean: Does not return a boolean value."
-     * @throws No exceptions are thrown in this method.
      */
-    private void btnSwitchPanel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSwitchPanel1ActionPerformed
+    private void btnSwitchPanelInCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSwitchPanelInCheckInActionPerformed
         // TODO add your handling code here:
         pnlFormForCheckIn.setVisible(true);
         pnlViewTableForCheckIn.setVisible(false);
-    }//GEN-LAST:event_btnSwitchPanel1ActionPerformed
+    }//GEN-LAST:event_btnSwitchPanelInCheckInActionPerformed
 
     /**
      * Switches the tab to the check-in section when the label is clicked.
      *
      * @param evt The MouseEvent triggered by the label click.
-     * @throws No exceptions are thrown in this method.
      */
     private void lblCheckInButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCheckInButtonMouseClicked
         // TODO add your handling code here:
@@ -2051,190 +1956,26 @@ public class AdminPanel extends javax.swing.JFrame {
      * Switches the tab to the manage room section when the label is clicked.
      *
      * @param evt The MouseEvent triggered by the label click.
-     * @throws No exceptions are thrown in this method.
      */
     private void lblManageRoomButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblManageRoomButtonMouseClicked
         // TODO add your handling code here:
         tbPaneMain.setSelectedIndex(0);
     }//GEN-LAST:event_lblManageRoomButtonMouseClicked
 
-    private void btnCheckOutNowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutNowActionPerformed
-        // TODO add your handling code here:
-        // Retrieve input values
-
-        //        String roomNumberStr = txtFieldRoomNumber.getText().trim();
-        //        String customerName = txtFieldCustomerName.getText().trim();
-        //        String mobileNumber = txtFieldMobileNumber.getText().trim();
-        //        String pricePerDayStr = txtFieldPricePerDay.getText().trim();
-        //        String totalAmountStr = txtFieldTotalAmount.getText().trim();
-        //        Date selectedCheckInDate = jdcForCheckInDate.getDate();
-        //        Date selectedCheckOutDate = jdcForCheckOutDate.getDate();
-        //
-        //        String checkInDate = "";
-        //        String checkOutDate = "";
-        //
-        //        if (selectedCheckInDate != null) {
-        //            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        //            checkInDate = dateFormat.format(selectedCheckInDate);
-        //        }
-        //        if (selectedCheckOutDate != null) {
-        //            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        //            checkOutDate = dateFormat.format(selectedCheckOutDate);
-        //        }
-        //
-        //        // Validate Room Number
-        //        if (roomNumberStr.isEmpty()) {
-        //            JOptionPane.showMessageDialog(this, "Room Number is required. Please enter a valid room number.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-        //            txtFieldRoomNumber.requestFocus();
-        //            return;
-        //        }
-        //        if (!ValidationUtil.isValidRoomNumber(roomNumberStr)) {
-        //            JOptionPane.showMessageDialog(this, "Invalid Room Number. It must be a numeric value (1-5 digits) and cannot start with a zero.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-        //            txtFieldRoomNumber.requestFocus();
-        //            return;
-        //        }
-        //
-        //        // Validate Customer Name
-        //        if (customerName.isEmpty()) {
-        //            JOptionPane.showMessageDialog(this, "Customer Name is required. Please enter a valid name.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-        //            txtFieldCustomerName.requestFocus();
-        //            return;
-        //        }
-        //        if (!ValidationUtil.isValidCustomerName(customerName)) {
-        //            JOptionPane.showMessageDialog(this, "Invalid Customer Name. It must contain 2-50 alphabetic characters.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-        //            txtFieldCustomerName.requestFocus();
-        //            return;
-        //        }
-        //
-        //        // Validate Mobile Number
-        //        if (mobileNumber.isEmpty()) {
-        //            JOptionPane.showMessageDialog(this, "Mobile Number is required. Please enter a valid mobile number.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-        //            txtFieldMobileNumber.requestFocus();
-        //            return;
-        //        }
-        //        if (!ValidationUtil.isValidMobileNumber(mobileNumber)) {
-        //            JOptionPane.showMessageDialog(this, "Invalid Mobile Number. It must be a 10-digit number.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-        //            txtFieldMobileNumber.requestFocus();
-        //            return;
-        //        }
-        //
-        //        // Validate Price Per Day
-        //        if (pricePerDayStr.isEmpty()) {
-        //            JOptionPane.showMessageDialog(this, "Price Per Day is required. Please enter a valid amount.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-        //            txtFieldPricePerDay.requestFocus();
-        //            return;
-        //        }
-        //        if (!ValidationUtil.isValidPrice(pricePerDayStr)) {
-        //            JOptionPane.showMessageDialog(this, "Invalid Price Per Day. It must be a positive number with optional decimal points (up to 2 decimal places).", "Validation Error", JOptionPane.ERROR_MESSAGE);
-        //            txtFieldPricePerDay.requestFocus();
-        //            return;
-        //        }
-        //
-        //        // Validate Total Amount
-        //        if (totalAmountStr.isEmpty()) {
-        //            JOptionPane.showMessageDialog(this, "Total Amount is required. Please enter a valid amount.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-        //            txtFieldTotalAmount.requestFocus();
-        //            return;
-        //        }
-        //        if (!ValidationUtil.isValidPrice(totalAmountStr)) {
-        //            JOptionPane.showMessageDialog(this, "Invalid Total Amount. It must be a positive number with optional decimal points (up to 2 decimal places).", "Validation Error", JOptionPane.ERROR_MESSAGE);
-        //            txtFieldTotalAmount.requestFocus();
-        //            return;
-        //        }
-        //
-        //        // Validate Check-In Date
-        //        if (checkInDate.isEmpty()) {
-        //            JOptionPane.showMessageDialog(this, "Check-In Date is required. Please select a valid date.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-        //            jdcForCheckInDate.requestFocus();
-        //            return;
-        //        }
-        //
-        //        // Validate Check-Out Date
-        //        if (checkOutDate.isEmpty()) {
-        //            JOptionPane.showMessageDialog(this, "Check-Out Date is required. Please select a valid date.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-        //            jdcForCheckOutDate.requestFocus();
-        //            return;
-        //        }
-        //        if (selectedCheckOutDate.before(selectedCheckInDate)) {
-        //            JOptionPane.showMessageDialog(this, "Check-Out Date cannot be earlier than Check-In Date.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-        //            jdcForCheckOutDate.requestFocus();
-        //            return;
-        //        }
-        //
-        //        // Convert Room Number, Price Per Day, and Total Amount
-        //        int roomNumber = Integer.parseInt(roomNumberStr);
-        //        double pricePerDay = Double.parseDouble(pricePerDayStr);
-        //        double totalAmount = Double.parseDouble(totalAmountStr);
-        //
-        //        // Check if room number exists in the system
-        //        boolean roomExists = false;
-        ////        for (RoomModel room : roomList) {
-        ////            if (room.getRoomNumber() == roomNumber) {
-        ////                roomExists = true;
-        ////                break;
-        ////            }
-        //        }
-        //        if (!roomExists) {
-        //            JOptionPane.showMessageDialog(this, "Room Number " + roomNumber + " does not exist. Please check the Room Number.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-        //            txtFieldRoomNumber.requestFocus();
-        //            return;
-        //        }
-        //
-        //        // Proceed with check-out process
-        //        JOptionPane.showMessageDialog(this, "Check-Out Successful!" + checkOutDate, "Success", JOptionPane.INFORMATION_MESSAGE);
-        // Remove the room from the "Booked" status
-    }//GEN-LAST:event_btnCheckOutNowActionPerformed
-
     /**
-     * Displays the table panel for checkout details and hides the checkout form
-     * panel.
+     * Switches the panel from the checkout table view to the checkout form view.
      *
      * @param evt The ActionEvent triggered by the button click.
-     * @return String: Returns no value (void method).
-     * @return boolean: Does not return a boolean
-     * @throws No exceptions are thrown in this method.
-     */
-    private void btnViewTableForCheckOutDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewTableForCheckOutDetailsActionPerformed
-        // TODO add your handling code here:
-        pnlTableForCheckOut.setVisible(true);
-        pnlFormForCheckOutForm.setVisible(false);
-    }//GEN-LAST:event_btnViewTableForCheckOutDetailsActionPerformed
-
-    /**
-     * Navigates back to the home page by creating a new home page instance and
-     * disposing of the current window.
-     *
-     * @param evt The ActionEvent triggered by the button click.
-     * @return String: Returns no value (void method).
-     * @return boolean: Does not return a boolean
-     * @throws No exceptions are thrown in this method.
-     */
-    private void btnBackToHomePage1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackToHomePage1ActionPerformed
-        // TODO add your handling code here:
-        new HomePage().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnBackToHomePage1ActionPerformed
-
-    /**
-     * Switches the panel from the checkout table view to the checkout form
-     * view.
-     *
-     * @param evt The ActionEvent triggered by the button click.
-     * @return String: Returns no value (void method).
-     * @return boolean: Does not return a boolean
-     * @throws No exceptions are thrown in this method.
      */
     private void switchPanelFromCheckOutTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchPanelFromCheckOutTableActionPerformed
         // TODO add your handling code here:
         pnlFormForCheckOutForm.setVisible(true);
         pnlTableForCheckOut.setVisible(false);
     }//GEN-LAST:event_switchPanelFromCheckOutTableActionPerformed
-
     /**
      * Switches the tab to the checkout section when the label is clicked.
      *
      * @param evt The MouseEvent triggered by the label click.
-     * @throws No exceptions are thrown in this method.
      */
     private void lblCheckOutButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCheckOutButtonMouseClicked
         // TODO add your handling code here:
@@ -2245,7 +1986,6 @@ public class AdminPanel extends javax.swing.JFrame {
      * Switches the tab to the dashboard section when the label is clicked.
      *
      * @param evt The MouseEvent triggered by the label click.
-     * @throws No exceptions are thrown in this method.
      */
     private void lblDashBoardButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDashBoardButtonMouseClicked
         // TODO add your handling code here:
@@ -2258,7 +1998,6 @@ public class AdminPanel extends javax.swing.JFrame {
      * page if confirmed.
      *
      * @param evt The MouseEvent triggered by the label click.
-     * @throws No exceptions are thrown in this method.
      */
     private void lblLogOutButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogOutButtonMouseClicked
         // TODO add your handling code here:
@@ -2285,7 +2024,6 @@ public class AdminPanel extends javax.swing.JFrame {
      * is clicked
      *
      * @param evt The MouseEvent triggered by the label click.
-     * @throws No exceptions are thrown in this method.
      */
     private void lblExitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExitButtonMouseClicked
         // TODO add your handling code here:
@@ -2299,7 +2037,9 @@ public class AdminPanel extends javax.swing.JFrame {
 
         if (response == JOptionPane.YES_OPTION) {
             // Close the application
+            System.out.println("Application exited and closed by the admin");
             System.exit(0);
+
         } else {
             // Log or handle if the user chooses not to exit
             System.out.println("User canceled the exit operation.");
@@ -2379,7 +2119,7 @@ public class AdminPanel extends javax.swing.JFrame {
      */
     private void cmbSortInCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSortInCustomerActionPerformed
         // TODO add your handling code here:
-        if (cmbSortInRoom.getSelectedIndex() == 0) {
+        if (cmbSortInCustomer.getSelectedIndex() == 0) {
             sortedCheckInList = insertionSort.sortByCustomerName(checkInList, isAscending);
         }
         loadCustomerListToTable(sortedCheckInList);
@@ -2411,16 +2151,14 @@ public class AdminPanel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Invalid Customer Name. It must contain 2-50 alphabetic characters.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             txtFieldCustomerName.requestFocus();
         }
-
         // Sort the list before performing binary search
         sortedCheckInList = insertionSort.sortByCustomerName(checkInList, isAscending);
-
         // Perform binary search to find the customer
         CustomerModel searchResult = binarySearch.searchByName(searchText, sortedCheckInList, 0, sortedCheckInList.size() - 1);
 
         // Check if the search result is null (customer not found)
         if (searchResult == null) {
-            JOptionPane.showMessageDialog(this, "Customer not found!", "Search Result", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "The searched customer does not exist in the system.", "Customer not found!", JOptionPane.ERROR_MESSAGE);
             return; // Stop execution
         }
 
@@ -2485,6 +2223,61 @@ public class AdminPanel extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtFieldForCustomerSearchFocusLost
     /**
+     * Handles the action for the "Check Out" button. This method dequeues a
+     * customer from the queue, updates the queue table, and transfers the
+     * customer to the stack.
+     *
+     * @param evt The action event triggered when the button is clicked.
+     * @throws Exception If an unexpected runtime error occurs during the
+     * operation.
+     */
+
+    private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
+        // TODO add your handling code here:
+
+        if (customerQueue.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No customer available to check out!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        // Check if the queue is empty or dequeued customer is null
+        CustomerModel checkedOutCustomer = customerQueue.deQueue();
+
+        // Remove the first row from the queue table
+        DefaultTableModel model = (DefaultTableModel) tblForCustomerQueue.getModel();
+        if (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+
+        // Set the current date as the check-out date
+        checkedOutCustomer.setCheckOutDate(getCurrentDate());
+
+        // Transfer the dequeued customer to the stack (update table + stack structure)
+        addDataToStackTable(checkedOutCustomer);
+        queueToStack(checkedOutCustomer);
+
+        // Show success message
+        JOptionPane.showMessageDialog(this, "Customer successfully checked out!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        // Update the room status
+        int roomNumber = checkedOutCustomer.getRoomNumber(); // Assuming CustomerModel has getRoomNumber()
+        updateRoomStatusInTableAndList(roomNumber, "Not-Booked");
+
+
+    }//GEN-LAST:event_btnCheckOutActionPerformed
+    /**
+     * Helper method to get the current date in yyyy-MM-dd format.
+     *
+     * @return the current date in "yyyy-MM-dd" format as a String
+     */
+    private String getCurrentDate() {
+        // Create a SimpleDateFormat instance with the desired date format
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        // Get the current date and format it
+        Date currentDate = new Date();
+        return formatter.format(currentDate);
+
+    }
+
+    /**
      * Restores all customer check-in data to the table by clearing the table
      * and re-adding all rows from the original check-in list.
      */
@@ -2513,7 +2306,7 @@ public class AdminPanel extends javax.swing.JFrame {
      * Adds initial room information to the room list for demonstration
      * purposes.
      */
-    public void addInitialRoomInformation() {
+    private void addInitialRoomInformation() {
         RoomModel room1 = new RoomModel(103, "AC", "Family Suite", "Double-Bed", 12000, "Booked");
         roomList.add(room1);
 
@@ -2541,7 +2334,7 @@ public class AdminPanel extends javax.swing.JFrame {
         RoomModel room9 = new RoomModel(109, "AC", "Presidential Suite", "Single-Bed", 29000, "Booked");
         roomList.add(room9);
 
-        RoomModel room10 = new RoomModel(107, "Non-AC", "Standard", "Single-Bed", 4800, "Not-Booked");
+        RoomModel room10 = new RoomModel(107, "Non-AC", "Standard", "Single-Bed", 4800, "Booked");
         roomList.add(room10);
     }
 
@@ -2579,6 +2372,7 @@ public class AdminPanel extends javax.swing.JFrame {
         for (int i = 0; i < roomList.size(); i++) {
             RoomModel room = roomList.get(i);
 
+            // Match the room number in the ArrayList
             if (room.getRoomNumber() == roomNumber) {
                 roomFound = true;
 
@@ -2589,18 +2383,19 @@ public class AdminPanel extends javax.swing.JFrame {
                 room.setPrice(price);
                 room.setStatus(status);
 
-                // Ensure JTable has enough rows
+                // Find the row index in JTable where the room number matches
                 DefaultTableModel model = (DefaultTableModel) tblRoom.getModel();
-                if (model.getRowCount() <= i) {
-                    model.setRowCount(i + 1); // Add rows as needed
+                for (int j = 0; j < model.getRowCount(); j++) {
+                    if ((int) model.getValueAt(j, 0) == roomNumber) { // Room Number column
+                        // Update the corresponding row in the JTable
+                        tblRoom.setValueAt(roomType, j, 1);  // Room Type column
+                        tblRoom.setValueAt(roomGrade, j, 2); // Room Grade column
+                        tblRoom.setValueAt(bedType, j, 3);   // Bed Type column
+                        tblRoom.setValueAt(price, j, 4);     // Price column
+                        tblRoom.setValueAt(status, j, 5);    // Status column
+                        break;
+                    }
                 }
-
-                // Update the corresponding row in the JTable
-                tblRoom.setValueAt(roomType, i, 1);  // Room Type column
-                tblRoom.setValueAt(roomGrade, i, 2);  // Room Grade column
-                tblRoom.setValueAt(bedType, i, 3);    // Bed Type column
-                tblRoom.setValueAt(price, i, 4);      // Price column
-                tblRoom.setValueAt(status, i, 5);     // Status column
 
                 // Show success message
                 JOptionPane.showMessageDialog(this, "Room details updated successfully!", "Update Success", JOptionPane.INFORMATION_MESSAGE);
@@ -2698,7 +2493,7 @@ public class AdminPanel extends javax.swing.JFrame {
      * purposes.
      *
      */
-    public void addInitialCheckInInformation() {
+    private void addInitialCheckInInformation() {
         CustomerModel customer1 = new CustomerModel("John Cena", "9843253088", "Male", "American",
                 "Double-Bed", "AC", 101, "2025-01-01");
         checkInList.add(customer1);
@@ -2716,10 +2511,16 @@ public class AdminPanel extends javax.swing.JFrame {
         checkInList.add(customer4);
 
         CustomerModel customer5 = new CustomerModel("Connor Mcgreggor", "9841442602", "Male", "Irish",
-                "Double-Bed", "Standard", 106, "2025-01-07");
+                "Double-Bed", "Standard", 107, "2025-01-07");
         checkInList.add(customer5);
     }
 
+    /**
+     * Loads a list of customers into the customer check-in table.
+     *
+     * @param customerList The list of CustomerModel objects to be displayed in
+     * the table.
+     */
     private void loadCustomerListToTable(List<CustomerModel> customerList) {
         DefaultTableModel model = (DefaultTableModel) tblCustomerCheckIn.getModel();  // Get the table model
         model.setRowCount(0);  // Clear existing rows
@@ -2773,7 +2574,7 @@ public class AdminPanel extends javax.swing.JFrame {
      * @param roomType The new room type.
      * @param checkInDate The new check-in date.
      */
-    private void updateCheckInData(int roomNumber, String customerName, String mobileNumber, String gender, String nationality, String bedType, String roomType, String checkInDate) {
+    private void updateCheckInData(int roomNumber, String customerName, String mobileNumber, String gender, String nationality, String mealPlan, String checkInPreference, String checkInDate) {
         // Update the check-in data in the ArrayList
         for (int i = 0; i < checkInList.size(); i++) {
             CustomerModel checkIn = checkInList.get(i);
@@ -2783,8 +2584,8 @@ public class AdminPanel extends javax.swing.JFrame {
                 checkIn.setMobileNumber(mobileNumber);
                 checkIn.setGender(gender);
                 checkIn.setNationality(nationality);
-                checkIn.setBedType(bedType);
-                checkIn.setRoomType(roomType);
+                checkIn.setMealPlan(mealPlan);
+                checkIn.setCheckInPreference(checkInPreference);
                 checkIn.setCheckInDate(checkInDate);
 
                 // Also update the corresponding row in the JTable
@@ -2792,8 +2593,8 @@ public class AdminPanel extends javax.swing.JFrame {
                 tblCustomerCheckIn.setValueAt(mobileNumber, i, 1);   // Mobile Number column
                 tblCustomerCheckIn.setValueAt(gender, i, 2);         // Gender column
                 tblCustomerCheckIn.setValueAt(nationality, i, 3);    // Nationality column
-                tblCustomerCheckIn.setValueAt(bedType, i, 4);        // Bed Type column
-                tblCustomerCheckIn.setValueAt(roomType, i, 5);       // Room Type column
+                tblCustomerCheckIn.setValueAt(mealPlan, i, 4);        // Bed Type column
+                tblCustomerCheckIn.setValueAt(checkInPreference, i, 5);       // Room Type column
                 tblCustomerCheckIn.setValueAt(roomNumber, i, 6);     // Room Number column
                 tblCustomerCheckIn.setValueAt(checkInDate, i, 7);    // Check-in Date column
 
@@ -2910,6 +2711,54 @@ public class AdminPanel extends javax.swing.JFrame {
     }
 
     /**
+     * Adds a list of customers to the queue and updates the queue table.
+     *
+     * @param customerList List of customers to be added to the queue.
+     */
+    private void listDataToQueue(List<CustomerModel> customerList) {
+        for (CustomerModel customer : customerList) {
+            CustomerModel queuedCustomer = new CustomerModel(customer.getCustomerName(), customer.getRoomNumber(), customer.getCheckInDate());
+            customerQueue.enQueue(queuedCustomer);
+            addDataToQueueTable(queuedCustomer);
+        }
+    }
+
+    /**
+     * Adds a single customer to the queue table in the GUI.
+     *
+     * @param customerQueue The customer to be added to the queue table.
+     */
+    private void addDataToQueueTable(CustomerModel customerQueue) {
+        DefaultTableModel model = (DefaultTableModel) tblForCustomerQueue.getModel();  // Get the table model
+
+        model.addRow(new Object[]{
+            customerQueue.getCustomerName(), customerQueue.getRoomNumber(), customerQueue.getCheckInDate()
+        });
+
+    }
+
+    /**
+     * Adds a single customer to the stack table in the GUI.
+     *
+     * @param customerStack The customer to be added to the stack table.
+     */
+    private void addDataToStackTable(CustomerModel customerStack) {
+        DefaultTableModel model = (DefaultTableModel) tblForCustomerStack.getModel();  // Get the table model
+        model.addRow(new Object[]{
+            customerStack.getCustomerName(), customerStack.getCheckInDate(), customerStack.getCheckOutDate()
+        });
+    }
+
+    /**
+     * Moves a checked-out customer to the stack data structure.
+     *
+     * @param checkedOutCustomer The customer to be moved to the stack.
+     */
+    private void queueToStack(CustomerModel checkedOutCustomer) {
+        customerStack.push(checkedOutCustomer);
+    }
+
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -2952,10 +2801,8 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JButton btnAscendingOrDescendingInRoom;
     private javax.swing.JButton btnBackToHomeFromCheckIn;
     private javax.swing.JButton btnBackToHomePage;
-    private javax.swing.JButton btnBackToHomePage1;
     private javax.swing.JButton btnCheckInNow;
-    private javax.swing.JButton btnCheckOutNow;
-    private javax.swing.JButton btnClear1;
+    private javax.swing.JButton btnCheckOut;
     private javax.swing.JButton btnClearCheckInFields;
     private javax.swing.JButton btnClearRoomFields;
     private javax.swing.JButton btnDeleteCheckInDetails;
@@ -2963,40 +2810,37 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.ButtonGroup btnGroupBedType;
     private javax.swing.ButtonGroup btnGroupCheckInPreference;
     private javax.swing.ButtonGroup btnGroupGender;
-    private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSearchCustomer;
-    private javax.swing.JButton btnSwitchPanel;
-    private javax.swing.JButton btnSwitchPanel1;
+    private javax.swing.JButton btnSwitchPanelForManageRooms;
+    private javax.swing.JButton btnSwitchPanelInCheckIn;
     private javax.swing.JButton btnUpdateCheckInDetails;
     private javax.swing.JButton btnUpdateRoomDetails;
     private javax.swing.JButton btnViewAllDataForCheckIn;
     private javax.swing.JButton btnViewTable;
     private javax.swing.JButton btnViewTableCheckIn;
-    private javax.swing.JButton btnViewTableForCheckOutDetails;
     private javax.swing.JComboBox<String> cmbMealPlanForCheckIn;
     private javax.swing.JComboBox<String> cmbRoomGrade;
     private javax.swing.JComboBox<String> cmbRoomType;
     private javax.swing.JComboBox<String> cmbSortInCustomer;
     private javax.swing.JComboBox<String> cmbSortInRoom;
     private javax.swing.JComboBox<String> cmbStatus;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
     private com.toedter.calendar.JDateChooser jdcForCheckInDate;
-    private com.toedter.calendar.JDateChooser jdcForCheckInDate1;
-    private com.toedter.calendar.JDateChooser jdcForCheckOutDate;
     private javax.swing.JLabel lblBedType;
     private javax.swing.JLabel lblBillButton;
     private javax.swing.JLabel lblCheckInButton;
     private javax.swing.JLabel lblCheckInDate;
-    private javax.swing.JLabel lblCheckInDate1;
     private javax.swing.JLabel lblCheckInPreference;
     private javax.swing.JLabel lblCheckOutButton;
-    private javax.swing.JLabel lblCheckOutDate;
     private javax.swing.JLabel lblCustomerName;
-    private javax.swing.JLabel lblCustomerName1;
     private javax.swing.JLabel lblDashBoardButton;
     private javax.swing.JLabel lblExitButton;
     private javax.swing.JLabel lblForTotalRoomsData;
@@ -3008,20 +2852,16 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JLabel lblManageRoomsBackground;
     private javax.swing.JLabel lblMealPlanForCheckIn;
     private javax.swing.JLabel lblMobileNumber;
-    private javax.swing.JLabel lblMobileNumber1;
     private javax.swing.JLabel lblNationality;
     private javax.swing.JLabel lblPrice;
-    private javax.swing.JLabel lblPricePerDay;
     private javax.swing.JLabel lblRoomGrade;
     private javax.swing.JLabel lblRoomNumber;
-    private javax.swing.JLabel lblRoomNumber1;
     private javax.swing.JLabel lblRoomNumber2;
     private javax.swing.JLabel lblRoomType;
     private javax.swing.JLabel lblSortBy;
     private javax.swing.JLabel lblSortBy1;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTitleAdminDashBoard;
-    private javax.swing.JLabel lblTotalAmount;
     private javax.swing.JLabel lblTotalCheckInData;
     private javax.swing.JLabel lblTotalCheckInTitleAndIcon;
     private javax.swing.JLabel lblTotalCustomerTitleAndIcon;
@@ -3058,18 +2898,15 @@ public class AdminPanel extends javax.swing.JFrame {
     private javax.swing.JButton switchPanelFromCheckOutTable;
     private javax.swing.JTabbedPane tbPaneMain;
     private javax.swing.JTable tblCustomerCheckIn;
+    private javax.swing.JTable tblForCustomerQueue;
+    private javax.swing.JTable tblForCustomerStack;
     private javax.swing.JTable tblRoom;
     private javax.swing.JTextField txtFieldCustomerName;
-    private javax.swing.JTextField txtFieldCustomerName1;
     private javax.swing.JTextField txtFieldForCustomerSearch;
     private javax.swing.JTextField txtFieldMobileNumber;
-    private javax.swing.JTextField txtFieldMobileNumber1;
     private javax.swing.JTextField txtFieldNationalityInCheckIn;
     private javax.swing.JTextField txtFieldPrice;
-    private javax.swing.JTextField txtFieldPricePerDay;
     private javax.swing.JTextField txtFieldRoomNumber;
-    private javax.swing.JTextField txtFieldRoomNumber1;
     private javax.swing.JTextField txtFieldRoomNumberCheckIn;
-    private javax.swing.JTextField txtFieldTotalAmount;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,10 +7,6 @@ package com.hotelmanagementapp.controller.algorithms;
 import com.hotelmanagementapp.model.CustomerModel;
 import java.util.List;
 
-/**
- * @author Santosh Lama 
- * LMU ID: 23048594
- */
 
 /**
  * A class that implements the Binary Search algorithm to search for a customer
@@ -18,6 +14,9 @@ import java.util.List;
  * 
  * Note: The list must be sorted in ascending order by customer name before 
  * performing the binary search.
+ * 
+ * @author Santosh Lama 
+ * LMU ID: 23048594
  */
 public class BinarySearch {
 

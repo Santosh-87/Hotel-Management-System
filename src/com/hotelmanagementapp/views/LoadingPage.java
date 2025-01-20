@@ -8,16 +8,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author 23048594 
- * Santosh Lama
- */
-/**
+ *  
  * LoadingPage class simulates the loading process of the Hotel Management
  * System with a progress bar and status updates. Once the loading completes, it
  * transitions to the LoginPage and disposes of the LoadingPage.
  *
+ * @author Santosh Lama 
+ * LMU ID: 23048594 
  */
+
 public class LoadingPage extends javax.swing.JFrame {
 
     /**
@@ -39,14 +38,14 @@ public class LoadingPage extends javax.swing.JFrame {
 
         pnlMain = new javax.swing.JPanel();
         pnlLoginForm1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lblForHotelBackgroundForLoadingPage = new javax.swing.JLabel();
         lblHotelLogo = new javax.swing.JLabel();
         lblWelcomeTitle = new javax.swing.JLabel();
         loadingProgressBar = new javax.swing.JProgressBar();
         lblLoadingTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocation(new java.awt.Point(300, 0));
+        setLocation(new java.awt.Point(300, 50));
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -54,17 +53,17 @@ public class LoadingPage extends javax.swing.JFrame {
 
         pnlLoginForm1.setPreferredSize(new java.awt.Dimension(599, 481));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/hotelBackgroundForLoadingScreen.jpg"))); // NOI18N
+        lblForHotelBackgroundForLoadingPage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/hotelBackgroundForLoadingScreen.jpg"))); // NOI18N
 
         javax.swing.GroupLayout pnlLoginForm1Layout = new javax.swing.GroupLayout(pnlLoginForm1);
         pnlLoginForm1.setLayout(pnlLoginForm1Layout);
         pnlLoginForm1Layout.setHorizontalGroup(
             pnlLoginForm1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblForHotelBackgroundForLoadingPage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlLoginForm1Layout.setVerticalGroup(
             pnlLoginForm1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblForHotelBackgroundForLoadingPage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         lblHotelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/hotelLogo.jpg"))); // NOI18N
@@ -125,7 +124,6 @@ public class LoadingPage extends javax.swing.JFrame {
 
     /**
      * Simulates a loading process with a progress bar and status updates.
-     *
      * Updates progress and status messages at milestones. Transitions to the
      * main application screen upon completion.
      */
@@ -158,7 +156,6 @@ public class LoadingPage extends javax.swing.JFrame {
                 }
             }
         });
-
         // Start the thread
         loadingPercentage.start();
     }
@@ -206,7 +203,7 @@ public class LoadingPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblForHotelBackgroundForLoadingPage;
     private javax.swing.JLabel lblHotelLogo;
     private javax.swing.JLabel lblLoadingTitle;
     private javax.swing.JLabel lblWelcomeTitle;

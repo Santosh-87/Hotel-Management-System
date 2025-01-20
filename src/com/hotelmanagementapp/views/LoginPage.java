@@ -7,15 +7,15 @@ package com.hotelmanagementapp.views;
 import javax.swing.JOptionPane;
 
 /**
+ * This class represents the login page of the hotel management application. It
+ * allows the user (admin) to log in by entering their email address and
+ * password. The login credentials are validated, and if they are correct, the
+ * home page is displayed. Additionally, it provides functionality for showing
+ * or hiding the password input.
  *
- * @author 23048594 Santosh Lama
- */
-/**
- * This class represents the login page of the hotel management application.
- * It allows the user (admin) to log in by entering their email address and password.
- * The login credentials are validated, and if they are correct, the home page is displayed. 
- * Additionally, it provides functionality for showing or hiding the password input.
- * 
+ * @author Santosh Lama 
+ * LMU ID: 23048594
+ *
  */
 public class LoginPage extends javax.swing.JFrame {
 
@@ -37,10 +37,10 @@ public class LoginPage extends javax.swing.JFrame {
 
         pnlLogin = new javax.swing.JPanel();
         pnlForm = new javax.swing.JPanel();
-        lblLoginWelcomeTitle1 = new javax.swing.JLabel();
-        txtFieldEmailAddress1 = new javax.swing.JTextField();
+        lblLoginWelcomeTitle = new javax.swing.JLabel();
+        txtFieldEmailAddress = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
-        btnSignUp1 = new javax.swing.JButton();
+        btnSignUp = new javax.swing.JButton();
         lblSubTitleForLoginInstructions1 = new javax.swing.JLabel();
         pwdFieldForLogin = new javax.swing.JPasswordField();
         lblLoginBackground = new javax.swing.JLabel();
@@ -53,27 +53,29 @@ public class LoginPage extends javax.swing.JFrame {
 
         pnlLogin.setBackground(new java.awt.Color(0, 31, 63));
 
-        lblLoginWelcomeTitle1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblLoginWelcomeTitle1.setForeground(new java.awt.Color(27, 35, 86));
-        lblLoginWelcomeTitle1.setText("Welcome back, Admin!");
+        lblLoginWelcomeTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblLoginWelcomeTitle.setForeground(new java.awt.Color(27, 35, 86));
+        lblLoginWelcomeTitle.setText("Welcome back, Admin!");
 
-        txtFieldEmailAddress1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Email address", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153))); // NOI18N
+        txtFieldEmailAddress.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Email address", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153))); // NOI18N
 
         btnLogin.setBackground(new java.awt.Color(27, 35, 86));
         btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("LOGIN");
+        btnLogin.setFocusable(false);
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
             }
         });
 
-        btnSignUp1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnSignUp1.setText("SIGN UP");
-        btnSignUp1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnSignUp.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSignUp.setText("SIGN UP");
+        btnSignUp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnSignUp.setFocusable(false);
 
-        lblSubTitleForLoginInstructions1.setForeground(new java.awt.Color(153, 153, 153));
+        lblSubTitleForLoginInstructions1.setForeground(new java.awt.Color(102, 102, 102));
         lblSubTitleForLoginInstructions1.setText("Please login to your account by filling in the details");
 
         pwdFieldForLogin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153))); // NOI18N
@@ -85,6 +87,7 @@ public class LoginPage extends javax.swing.JFrame {
         btnShow.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnShow.setForeground(new java.awt.Color(255, 255, 255));
         btnShow.setText("Show");
+        btnShow.setFocusable(false);
         btnShow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnShowActionPerformed(evt);
@@ -92,7 +95,8 @@ public class LoginPage extends javax.swing.JFrame {
         });
 
         lblErrorMessage.setBackground(new java.awt.Color(255, 51, 0));
-        lblErrorMessage.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        lblErrorMessage.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+        lblErrorMessage.setForeground(new java.awt.Color(255, 0, 51));
 
         javax.swing.GroupLayout pnlFormLayout = new javax.swing.GroupLayout(pnlForm);
         pnlForm.setLayout(pnlFormLayout);
@@ -102,20 +106,20 @@ public class LoginPage extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSubTitleForLoginInstructions1)
-                    .addComponent(lblLoginWelcomeTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLoginWelcomeTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlFormLayout.createSequentialGroup()
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnSignUp1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlFormLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFieldEmailAddress1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFieldEmailAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlFormLayout.createSequentialGroup()
                                 .addComponent(pwdFieldForLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnShow, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(lblLoginBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -123,11 +127,11 @@ public class LoginPage extends javax.swing.JFrame {
             pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFormLayout.createSequentialGroup()
                 .addGap(70, 70, 70)
-                .addComponent(lblLoginWelcomeTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblLoginWelcomeTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblSubTitleForLoginInstructions1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtFieldEmailAddress1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFieldEmailAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pwdFieldForLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -135,11 +139,11 @@ public class LoginPage extends javax.swing.JFrame {
                         .addGap(14, 14, 14)
                         .addComponent(btnShow)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblErrorMessage)
-                .addGap(22, 22, 22)
+                .addComponent(lblErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addGroup(pnlFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSignUp1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(lblLoginBackground, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -175,14 +179,17 @@ public class LoginPage extends javax.swing.JFrame {
      */
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        if (txtFieldEmailAddress1.getText().equals("admin@gmail.com") && pwdFieldForLogin.getText().equals("admin")) {
+        if (txtFieldEmailAddress.getText().equals("admin@gmail.com") && pwdFieldForLogin.getText().equals("admin")) {
+            JOptionPane.showMessageDialog(this, "Logged-In Successfully", "Login Success", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
             new HomePage().setVisible(true);
+        } else if (txtFieldEmailAddress.getText().isEmpty() && pwdFieldForLogin.getText().isEmpty()) {
+            lblErrorMessage.setText("Empty fields! Both fields are required to be filled.");
         } else {
-            lblErrorMessage.setText("Incorrect username or password. Try again..");
+            lblErrorMessage.setText("Incorrect username or password. Try again");
         }
     }//GEN-LAST:event_btnLoginActionPerformed
-    
+
     /**
      * Toggles the visibility of the password in the password field. When the
      * "Show" button is clicked, the password becomes visible. When the "Hide"
@@ -258,14 +265,14 @@ public class LoginPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnShow;
-    private javax.swing.JButton btnSignUp1;
+    private javax.swing.JButton btnSignUp;
     private javax.swing.JLabel lblErrorMessage;
     private javax.swing.JLabel lblLoginBackground;
-    private javax.swing.JLabel lblLoginWelcomeTitle1;
+    private javax.swing.JLabel lblLoginWelcomeTitle;
     private javax.swing.JLabel lblSubTitleForLoginInstructions1;
     private javax.swing.JPanel pnlForm;
     private javax.swing.JPanel pnlLogin;
     private javax.swing.JPasswordField pwdFieldForLogin;
-    private javax.swing.JTextField txtFieldEmailAddress1;
+    private javax.swing.JTextField txtFieldEmailAddress;
     // End of variables declaration//GEN-END:variables
 }

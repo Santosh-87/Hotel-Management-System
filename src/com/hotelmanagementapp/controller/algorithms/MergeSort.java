@@ -9,12 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * A class that implements the Merge Sort algorithm to sort RoomModel objects.
  *
  * @author Santosh Lama 
  * LMU ID: 23048594
- */
-/**
- * A class that implements the Merge Sort algorithm to sort RoomModel objects.
  */
 public class MergeSort {
 

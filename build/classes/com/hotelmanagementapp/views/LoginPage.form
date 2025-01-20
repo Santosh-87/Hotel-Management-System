@@ -70,22 +70,22 @@
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblSubTitleForLoginInstructions1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblLoginWelcomeTitle1" alignment="0" min="-2" pref="215" max="-2" attributes="0"/>
+                          <Component id="lblLoginWelcomeTitle" alignment="0" min="-2" pref="215" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="btnLogin" min="-2" pref="91" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnSignUp1" min="-2" pref="109" max="-2" attributes="0"/>
+                              <Component id="btnSignUp" min="-2" pref="109" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtFieldEmailAddress1" min="-2" pref="212" max="-2" attributes="0"/>
+                                  <Component id="txtFieldEmailAddress" min="-2" pref="212" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="pwdFieldForLogin" min="-2" pref="212" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="btnShow" min="-2" pref="64" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="lblErrorMessage" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
+                                  <Component id="lblErrorMessage" alignment="0" min="-2" pref="288" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -98,11 +98,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-                      <Component id="lblLoginWelcomeTitle1" min="-2" pref="42" max="-2" attributes="0"/>
+                      <Component id="lblLoginWelcomeTitle" min="-2" pref="42" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblSubTitleForLoginInstructions1" min="-2" pref="33" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="txtFieldEmailAddress1" min="-2" pref="62" max="-2" attributes="0"/>
+                      <Component id="txtFieldEmailAddress" min="-2" pref="62" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="pwdFieldForLogin" min="-2" pref="56" max="-2" attributes="0"/>
@@ -112,11 +112,11 @@
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="lblErrorMessage" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="lblErrorMessage" min="-2" pref="16" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnLogin" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                          <Component id="btnSignUp1" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                          <Component id="btnSignUp" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -125,7 +125,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblLoginWelcomeTitle1">
+            <Component class="javax.swing.JLabel" name="lblLoginWelcomeTitle">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="18" style="1"/>
@@ -136,7 +136,7 @@
                 <Property name="text" type="java.lang.String" value="Welcome back, Admin!"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtFieldEmailAddress1">
+            <Component class="javax.swing.JTextField" name="txtFieldEmailAddress">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -159,12 +159,13 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="LOGIN"/>
+                <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLoginActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnSignUp1">
+            <Component class="javax.swing.JButton" name="btnSignUp">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="1"/>
@@ -175,12 +176,13 @@
                     <LineBorder/>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblSubTitleForLoginInstructions1">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
+                  <Color blue="66" green="66" red="66" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Please login to your account by filling in the details"/>
               </Properties>
@@ -218,6 +220,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Show"/>
+                <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnShowActionPerformed"/>
@@ -229,7 +232,10 @@
                   <Color blue="0" green="33" red="ff" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="10" style="0"/>
+                  <Font name="Segoe UI" size="10" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="33" green="0" red="ff" type="rgb"/>
                 </Property>
               </Properties>
             </Component>

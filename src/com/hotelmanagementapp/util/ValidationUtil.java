@@ -4,12 +4,20 @@
  */
 package com.hotelmanagementapp.util;
 
-/**
- *
- * @author Santosh Lama LMU ID: 23048594
- */
 import java.util.regex.Pattern;
 
+/**
+ * Utility class for validating various input fields used in the application.
+ * This class provides methods to validate room details, customer details, and
+ * other attributes such as price, room type, bed type, meal plan, and check-in
+ * preferences using regular expressions.
+ *
+ * All methods are static and can be accessed without creating an instance of
+ * this class.
+ *
+ * @author Santosh Lama 
+ * LMU ID: 23048594
+ */
 public class ValidationUtil {
 
     // Regular expression patterns
@@ -19,10 +27,9 @@ public class ValidationUtil {
     private static final Pattern ROOM_GRADE_PATTERN = Pattern.compile("^(Standard|Deluxe|Family Suite|Presidential Suite)\\s*$"); // Predefined room grades
     private static final Pattern BED_TYPE_PATTERN = Pattern.compile("^(Single-bed|Double-bed)\\s*$"); // Pre-defined Bed types
     private static final Pattern STATUS_PATTERN = Pattern.compile("^(Booked|Not-Booked)\\s*$"); // Pre-defined Room status
-    private static final Pattern CUSTOMER_NAME_PATTERN = Pattern.compile("^[a-zA-Z\\s]{2,50}$");
-    private static final Pattern GENDER_PATTERN = Pattern.compile("^(Male|Female)\\s*$"); // Pre-defined Gender types
-    private static final Pattern MOBILE_NUMBER_PATTERN = Pattern.compile("^98\\d{8}$"); // 
-    private static final Pattern NATIONALITY_PATTERN = Pattern.compile("^[a-zA-Z\\s]{2,30}$"); // Matches a valid nationality (2 to 20 alphabetic characters, including spaces)
+    private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z\\s]{2,50}$");
+    private static final Pattern GENDER_PATTERN = Pattern.compile("^(Male|Female)\\s*$");
+    private static final Pattern MOBILE_NUMBER_PATTERN = Pattern.compile("^98\\d{8}$");
     private static final Pattern MEAL_PLAN_PATTERN = Pattern.compile("^(Breakfast only|Full Board|No Meal)\\s*$");
     private static final Pattern CHECKIN_PREFERENCE_PATTERN = Pattern.compile("^(Morning|Afternoon|Evening)\\s*$");
 
@@ -93,17 +100,17 @@ public class ValidationUtil {
      * @return true if valid, otherwise false
      */
     public static boolean isValidCustomerName(String name) {
-        return CUSTOMER_NAME_PATTERN.matcher(name).matches();
+        return NAME_PATTERN.matcher(name).matches();
     }
 
     /**
-     * Validates Customer Name.
+     * Validates gender.
      *
      * @param gender the gender to validate
      * @return true if valid, otherwise false
      */
     public static boolean isValidGender(String gender) {
-        return CUSTOMER_NAME_PATTERN.matcher(gender).matches();
+        return GENDER_PATTERN.matcher(gender).matches();
     }
 
     /**
@@ -123,7 +130,7 @@ public class ValidationUtil {
      * @return true if valid, otherwise false
      */
     public static boolean isValidNationality(String nationality) {
-        return NATIONALITY_PATTERN.matcher(nationality).matches();
+        return NAME_PATTERN.matcher(nationality).matches();
     }
 
     /**
